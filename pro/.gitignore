@@ -1,0 +1,38 @@
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+*.swp
+*.swo
+*~
+
+# Backup files
+*.bak
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Claude Code
+.claude/
+.claudeignore
+CLAUDE.md
+
+# PlatformIO
+.pio/
+
+# Node.js
+node_modules/
+
+# HC32 build
+adv-controller/build/
+
+# Compiled binaries
+*.o
+*.elf
+*.bin
+*.hex
+*.map
