@@ -2,7 +2,7 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>GBS-Control</title>
+    <title>GBS-Control by Thaleco</title>
     <link rel="manifest" href="${manifest}" />
     <style>
       ${styles}
@@ -34,7 +34,7 @@
           <path
             fill-rule="evenodd"
             clip-rule="evenodd"
-            fill="#00c0fb"
+            fill="#ee9b00"
             d="M270.062 75.08V60.242h-17.04v10.079c0 2.604-2.67 5.02-5.075 5.02h-20.529c-4.983 0-5.43-4.23-5.43-8.298v-37.93c0-2.668 1.938-4.863 4.88-4.863h20.995c2.684 0 5.158 1.492 5.158 4.482V38.86h17.04V27.63c0-7.867-4.26-15.923-13.039-15.923H221.19c-7.309 0-15.604 4.235-15.604 12.652v50.387c0 6.508 4.883 13.068 12.42 13.068h38.47c6.606 0 13.587-5.803 13.587-12.734zM190.488 5.562H6.617L6.585 91.91h183.91l-.007-86.348z"
           />
           <text
@@ -1264,6 +1264,69 @@
                 <input type="file" class="gbs-backup-input" accept=".bin"/>
                 <div gbs-progress gbs-progress-restore>Restaurar</div>
               </button>
+            </div>
+          </fieldset>
+          <fieldset class="gbs-fieldset">
+            <legend class="gbs-fieldset__legend">
+              <div class="gbs-icon">info</div>
+              <div>Sobre</div>
+            </legend>
+            <div class="gbs-about">
+              <div class="gbs-about__title">GBS-Control by Thaleco</div>
+              <div class="gbs-about__version">
+                Edição Thales Câmara · v<span gbs-about-version>—</span>
+              </div>
+              <div class="gbs-about__credit">
+                Customizado por Luan Freitas ·
+                <a href="https://github.com/ludufre" target="_blank" rel="noopener">@ludufre</a>
+              </div>
+              <div class="gbs-about__credit">
+                Agradecimentos:
+                <a href="https://www.youtube.com/@lima112" target="_blank" rel="noopener">Lima112</a>
+              </div>
+              <div class="gbs-about__credit">
+                Baseado no GBS-Control de ramapcsx2, RetroScaler e colaboradores
+              </div>
+              <div class="gbs-flex gbs-about__links">
+                <a
+                  class="gbs-button gbs-button__control gbs-button__secondary"
+                  href="https://www.youtube.com/@thalescamara"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <div class="gbs-icon">smart_display</div>
+                  <div>YouTube</div>
+                </a>
+                <a
+                  class="gbs-button gbs-button__control gbs-button__secondary"
+                  href="https://www.youtube.com/channel/UCYRtc_byKs1X1U7TdOVs0lg/join"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <div class="gbs-icon">star</div>
+                  <div>Seja membro</div>
+                </a>
+              </div>
+              <div class="gbs-flex gbs-about__links">
+                <a
+                  class="gbs-button gbs-button__control gbs-button__secondary"
+                  href="https://livepix.gg/thalescamara"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <div class="gbs-icon">volunteer_activism</div>
+                  <div>Apoie no LivePix</div>
+                </a>
+                <a
+                  class="gbs-button gbs-button__control gbs-button__secondary"
+                  href="https://thalescamara.com.br"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <div class="gbs-icon">language</div>
+                  <div>Site</div>
+                </a>
+              </div>
             </div>
           </fieldset>
           <fieldset class="gbs-fieldset">

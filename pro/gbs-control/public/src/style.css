@@ -1,18 +1,18 @@
 /** variables */
 :root {
-  --color-black: black;
-  --color-cod-gray-light: #181818;
-  --color-cod-gray: #101010;
-  --color-mine-shaft-light: #303030;
-  --color-mine-shaft: #202020;
-  --color-primary-rgba: 0, 192, 251;
-  --color-primary: #00c0fb;
-  --color-scorpion: #808080;
-  --color-secondary-rgba: 234, 182, 56;
-  --color-secondary: #eab638;
-  --color-silver-chalice: #aaa;
-  --color-warning: red;
-  --color-white: white;
+  --color-black: #000000;
+  --color-cod-gray-light: #161a1c;
+  --color-cod-gray: #111315;
+  --color-mine-shaft-light: #262a2d;
+  --color-mine-shaft: #1b1e20;
+  --color-primary-rgba: 238, 155, 0;
+  --color-primary: #ee9b00;
+  --color-scorpion: #8a9098;
+  --color-secondary-rgba: 0, 180, 216;
+  --color-secondary: #00b4d8;
+  --color-silver-chalice: #e9ecef;
+  --color-warning: #9b2226;
+  --color-white: #ffffff;
   --viewport-height: 100%;
 
   /*GBC
@@ -309,6 +309,30 @@ body {
 .gbs-fieldset__legend div {
   display: inline-block;
   vertical-align: middle;
+}
+
+.gbs-member-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 6px 0 0 0;
+  padding: 2px 8px 2px 6px;
+  border: 1px solid rgba(var(--color-primary-rgba), 0.5);
+  border-radius: 10px;
+  background-color: rgba(var(--color-primary-rgba), 0.1);
+  color: var(--color-primary);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: left;
+  position: absolute;
+  top: -33px;
+  right: 0;
+}
+
+.gbs-member-badge .gbs-icon {
+  font-size: 13px;
 }
 
 /** table */
@@ -708,4 +732,73 @@ section[name="alert"] {
   50% {
     opacity: 0;
   }
+}
+
+/* Thaleco: slot Empty label in pt-BR */
+.gbs-button__slot[gbs-name="Empty"]::before {
+  content: "Vazio";
+}
+
+/* Thaleco: About section */
+.gbs-about {
+  text-align: center;
+  padding: 4px 8px 8px;
+}
+.gbs-about__title {
+  color: var(--color-primary);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.gbs-about__version {
+  color: var(--color-secondary);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.gbs-about__credit {
+  color: var(--color-scorpion);
+  font-size: 12px;
+  line-height: 14px;
+  margin: 0 8px 8px;
+}
+.gbs-about__credit a {
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+.gbs-about__credit a:hover {
+  text-decoration: underline;
+}
+.gbs-about__credit:last-of-type {
+  margin-bottom: 16px;
+}
+.gbs-about__links {
+  margin-bottom: 4px;
+}
+.gbs-about__links a {
+  text-decoration: none;
+}
+
+/* Thaleco: OTA online */
+.gbs-ota {
+  padding: 4px 8px 8px;
+}
+.gbs-ota__status {
+  color: var(--color-silver-chalice);
+  font-size: 13px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.gbs-ota__status span {
+  color: var(--color-primary);
+  font-family: monospace;
+  font-size: 12px;
+}
+.gbs-ota__status .gbs-ota-available {
+  color: var(--color-secondary);
+}
+.gbs-ota__status .gbs-ota-error {
+  color: var(--color-warning);
 }

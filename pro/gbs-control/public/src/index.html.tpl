@@ -2,7 +2,7 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>GBS-Control Pro</title>
+    <title>GBS-Control Pro by Thaleco</title>
     <link rel="manifest" href="${manifest}" />
     <style>
       ${styles}
@@ -1797,6 +1797,69 @@
                 <input type="file" class="gbs-backup-input" accept=".bin"/>
                 <div gbs-progress gbs-progress-restore>Restaurar</div>
               </button>
+            </div>
+          </fieldset>
+          <fieldset class="gbs-fieldset">
+            <legend class="gbs-fieldset__legend">
+              <div class="gbs-icon">info</div>
+              <div>Sobre</div>
+            </legend>
+            <div class="gbs-about">
+              <div class="gbs-about__title">GBS-Control Pro by Thaleco</div>
+              <div class="gbs-about__version">
+                Edição Thales Câmara · v<span gbs-about-version>—</span>
+              </div>
+              <div class="gbs-about__credit">
+                Customizado por Luan Freitas ·
+                <a href="https://github.com/ludufre" target="_blank" rel="noopener">@ludufre</a>
+              </div>
+              <div class="gbs-about__credit">
+                Agradecimentos:
+                <a href="https://www.youtube.com/@lima112" target="_blank" rel="noopener">Lima112</a>
+              </div>
+              <div class="gbs-about__credit">
+                Baseado no GBS-Control de ramapcsx2, Brisma, RetroScaler e colaboradores
+              </div>
+              <div class="gbs-flex gbs-about__links">
+                <a
+                  class="gbs-button gbs-button__control gbs-button__secondary"
+                  href="https://www.youtube.com/@thalescamara"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <div class="gbs-icon">smart_display</div>
+                  <div>YouTube</div>
+                </a>
+                <a
+                  class="gbs-button gbs-button__control gbs-button__secondary"
+                  href="https://www.youtube.com/channel/UCYRtc_byKs1X1U7TdOVs0lg/join"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <div class="gbs-icon">star</div>
+                  <div>Seja membro</div>
+                </a>
+              </div>
+              <div class="gbs-flex gbs-about__links">
+                <a
+                  class="gbs-button gbs-button__control gbs-button__secondary"
+                  href="https://livepix.gg/thalescamara"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <div class="gbs-icon">volunteer_activism</div>
+                  <div>Apoie no LivePix</div>
+                </a>
+                <a
+                  class="gbs-button gbs-button__control gbs-button__secondary"
+                  href="https://thalescamara.com.br"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <div class="gbs-icon">language</div>
+                  <div>Site</div>
+                </a>
+              </div>
             </div>
           </fieldset>
           <fieldset class="gbs-fieldset">

@@ -7306,8 +7306,9 @@ void setup()
     // delay 1 of 2
     unsigned long initDelay = millis();
     // upped from < 500 to < 1500, allows more time for wifi and GBS startup
-    while (millis() - initDelay < 1500) {
-        display.drawXbm(2, 2, gbsicon_width, gbsicon_height, gbsicon_bits);
+    while (millis() - initDelay < 2500) {
+        display.drawXbm((128 - gbsicon_width) / 2, (64 - gbsicon_height) / 2,
+                        gbsicon_width, gbsicon_height, gbsicon_bits);
         display.display();
         handleWiFi(0);
         delay(1);
