@@ -15,9 +15,9 @@ void handle_SVAVInput_Page1(void)
     OSD_writePageIcons(false, '1', true);
     OSD_writeStringAtRow(1, 1, "I2P Settings");
     OSD_writeCharAtRow(1, 0xFF, arrow_right_icon, (selectedMenuLine == 1) ? OSD_TEXT_SELECTED : OSD_CURSOR_INACTIVE);
-    OSD_writeStringAtRow(2, 1, "Video Filters");
+    OSD_writeStringAtRow(2, 1, "Filtros Video");
     OSD_writeCharAtRow(2, 0xFF, arrow_right_icon, (selectedMenuLine == 2) ? OSD_TEXT_SELECTED : OSD_CURSOR_INACTIVE);
-    OSD_writeStringAtRow(3, 1, "ACE Settings");
+    OSD_writeStringAtRow(3, 1, "Ajustes ACE");
     OSD_writeCharAtRow(3, 0xFF, arrow_right_icon, (selectedMenuLine == 3) ? OSD_TEXT_SELECTED : OSD_CURSOR_INACTIVE);
 }
 
@@ -34,11 +34,11 @@ void handle_SVAVInput_Page2(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, '2', true);
-    OSD_writeStringAtRow(1, 1, "Brightness");
+    OSD_writeStringAtRow(1, 1, "Brilho");
     OSD_drawDashRange(1, 11, 22);
-    OSD_writeStringAtRow(2, 1, "Contrast");
+    OSD_writeStringAtRow(2, 1, "Contraste");
     OSD_drawDashRange(2, 9, 22);
-    OSD_writeStringAtRow(3, 1, "Saturation");
+    OSD_writeStringAtRow(3, 1, "Saturacao");
     OSD_drawDashRange(3, 11, 22);
 }
 
@@ -59,7 +59,7 @@ void handle_SVAVInput_Page3(void)
     OSD_writePageIcons(true, '3', false);
     OSD_writeStringAtRow(1, 1, "Hue");
     OSD_drawDashRange(1, 4, 22);
-    OSD_writeStringAtRow(2, 1, "Default");
+    OSD_writeStringAtRow(2, 1, "Padrao");
 }
 
 void handle_SVAVInput_Page3_Values(void)
@@ -75,11 +75,11 @@ void handle_ACE_Page1(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(false, '1', true);
-    OSD_writeStringAtRow(1, 1, "Enable");
+    OSD_writeStringAtRow(1, 1, "Ativar");
     OSD_drawDashRange(1, 7, 22);
-    OSD_writeStringAtRow(2, 1, "Luma Gain", uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
+    OSD_writeStringAtRow(2, 1, "Ganho Luma", uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
     OSD_drawDashRange(2, 10, 23, uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
-    OSD_writeStringAtRow(3, 1, "Chroma Gain", uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
+    OSD_writeStringAtRow(3, 1, "Ganho Chroma", uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
     OSD_drawDashRange(3, 12, 23, uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
 }
 
@@ -98,11 +98,11 @@ void handle_ACE_Page2(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, '2', true);
-    OSD_writeStringAtRow(1, 1, "Chroma Max", uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
+    OSD_writeStringAtRow(1, 1, "Chroma Max.", uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
     OSD_drawDashRange(1, 11, 23, uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
-    OSD_writeStringAtRow(2, 1, "Gamma Gain", uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
+    OSD_writeStringAtRow(2, 1, "Ganho Gamma", uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
     OSD_drawDashRange(2, 11, 23, uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
-    OSD_writeStringAtRow(3, 1, "Response Spd", uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
+    OSD_writeStringAtRow(3, 1, "Velocidade", uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
     OSD_drawDashRange(3, 13, 23, uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
 }
 
@@ -121,7 +121,7 @@ void handle_ACE_Page3(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, '3', false);
-    OSD_writeStringAtRow(1, 1, "Default", uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
+    OSD_writeStringAtRow(1, 1, "Padrao", uopt->advACE ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
 }
 
 void handle_ACE_Page3_Values(void)
@@ -139,11 +139,11 @@ void handle_ACE_Page3_Values(void)
 // Helper to display Y filter name for CVBS (register 0x17 YSFM - datasheet names)
 // Valid range: 0-30 (AutoWide-NTSC WN3).
 static void OSD_displayYFilterName(uint8_t row, uint8_t filter) {
-    const char* name = "AutoNarrow";  // Default fallback
+    const char* name = "AutoEstreito";  // Default fallback
 
     switch (filter) {
         case 0:  name = "--AutoWide"; break;
-        case 1:  name = "AutoNarrow"; break;
+        case 1:  name = "AutoEstreito"; break;
         case 2:  name = "----SVHS-1"; break;
         case 3:  name = "----SVHS-2"; break;
         case 4:  name = "----SVHS-3"; break;
@@ -219,19 +219,19 @@ static void OSD_displayCFilterName(uint8_t row, uint8_t filter) {
         case 4: name = "-----SH3"; break;
         case 5: name = "-----SH4"; break;
         case 6: name = "-----SH5"; break;
-        case 7: name = "Wideband"; break;
+        case 7: name = "Banda Larga"; break;
     }
     OSD_writeStringAtRow(row, 18, name);
 }
 
 // Helper to display comb filter bandwidth name (uses PAL names: Narrow/Medium/Wide/Widest)
 static void OSD_displayCombBW(uint8_t row, uint8_t bw) {
-    const char* name = "Narrow";
+    const char* name = "Estreito";
     switch (bw) {
-        case 0: name = "Narrow"; break;
-        case 1: name = "Medium"; break;
+        case 0: name = "Estreito"; break;
+        case 1: name = "Medio"; break;
         case 2: name = "--Wide"; break;
-        case 3: name = "Widest"; break;
+        case 3: name = "Maximo"; break;
     }
     OSD_writeStringAtRow(row, 20, name);
 }
@@ -260,13 +260,13 @@ static bool isNTSCSignal(void) {
 // Helper to display Luma mode name
 // Values: 0=Adaptive, 4=Notch, 5=Fixed Top, 6=Fixed All, 7=Fixed Bottom
 static void OSD_displayLumaMode(uint8_t row, uint8_t mode) {
-    const char* name = "Adaptive";
+    const char* name = "Adaptativo";
     switch (mode) {
-        case 0: name = "Adaptive"; break;
+        case 0: name = "Adaptativo"; break;
         case 4: name = "---Notch"; break;
-        case 5: name = "FixedTop"; break;
-        case 6: name = "FixedAll"; break;
-        case 7: name = "FixedBot"; break;
+        case 5: name = "FixoSup"; break;
+        case 6: name = "FixoTudo"; break;
+        case 7: name = "FixoInf"; break;
     }
     OSD_writeStringAtRow(row, 18, name);
 }
@@ -274,13 +274,13 @@ static void OSD_displayLumaMode(uint8_t row, uint8_t mode) {
 // Helper to display Chroma mode name
 // Values: 0=Adaptive, 4=Off, 5=Fixed Top, 6=Fixed All, 7=Fixed Bottom
 static void OSD_displayChromaMode(uint8_t row, uint8_t mode) {
-    const char* name = "Adaptive";
+    const char* name = "Adaptativo";
     switch (mode) {
-        case 0: name = "Adaptive"; break;
+        case 0: name = "Adaptativo"; break;
         case 4: name = "-----OFF"; break;
-        case 5: name = "FixedTop"; break;
-        case 6: name = "FixedAll"; break;
-        case 7: name = "FixedBot"; break;
+        case 5: name = "FixoSup"; break;
+        case 6: name = "FixoTudo"; break;
+        case 7: name = "FixoInf"; break;
     }
     OSD_writeStringAtRow(row, 18, name);
 }
@@ -319,7 +319,7 @@ void handle_VideoFilters_Page1(void)
         // S-Video mode
         OSD_writeStringAtRow(1, 1, "Y Filter");
         OSD_drawDashRange(1, 9, 17);
-        OSD_writeStringAtRow(2, 1, "Override");
+        OSD_writeStringAtRow(2, 1, "Forcar");
         OSD_drawDashRange(2, 9, 17);
     } else {
         // AV (Composite) mode
@@ -329,7 +329,7 @@ void handle_VideoFilters_Page1(void)
         OSD_drawDashRange(2, 9, 17);
     }
     // Row 3: Bandwidth (same for both modes)
-    OSD_writeStringAtRow(3, 1, "Bandwidth");
+    OSD_writeStringAtRow(3, 1, "Largura");
     OSD_drawDashRange(3, 10, 19);
 }
 
@@ -360,9 +360,9 @@ void handle_VideoFilters_Page2(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, '2', true);
-    OSD_writeStringAtRow(1, 1, "Luma Mode");
+    OSD_writeStringAtRow(1, 1, "Modo Luma");
     OSD_drawDashRange(1, 10, 17);
-    OSD_writeStringAtRow(2, 1, "Chroma Mode");
+    OSD_writeStringAtRow(2, 1, "Modo Chroma");
     OSD_drawDashRange(2, 12, 17);
     OSD_writeStringAtRow(3, 1, "Chroma Taps");
     OSD_drawDashRange(3, 12, 17);
@@ -387,7 +387,7 @@ void handle_VideoFilters_Page3(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, '3', false);
-    OSD_writeStringAtRow(1, 1, "Default");
+    OSD_writeStringAtRow(1, 1, "Padrao");
 }
 
 void handle_VideoFilters_Page3_Values(void)
@@ -405,7 +405,7 @@ void handle_I2P_Page1(void)
     OSD_writePageIcons(false, '1', false);
     OSD_writeStringAtRow(1, 1, "Enable I2P/2X");
     OSD_drawDashRange(1, 14, 22);
-    OSD_writeStringAtRow(2, 1, "Smooth", uopt->advI2P ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
+    OSD_writeStringAtRow(2, 1, "Suave", uopt->advI2P ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
     OSD_drawDashRange(2, 7, 22, uopt->advI2P ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
 }
 

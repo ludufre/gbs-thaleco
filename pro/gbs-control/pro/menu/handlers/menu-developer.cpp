@@ -20,7 +20,7 @@ bool IR_handleDeveloperMenu()
 {
     // OLED_Developer - Main menu entry (row 2, page 3)
     if (oled_menuItem == OLED_Developer) {
-        showMenu("Menu->>>", "Developer");
+        showMenu("Menu->>>", "Desenvolvedor");
 
         if (irDecode()) {
             switch (results.value) {
@@ -49,7 +49,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_MemoryAdjust - MEM left/right
     else if (oled_menuItem == OLED_Developer_MemoryAdjust) {
-        showMenu("Developer", "MEM left/right");
+        showMenu("Desenvolvedor", "MEM left/right");
         OSD_handleCommand(OSD_CMD_DEV_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -80,7 +80,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_HSyncAdjust - HS left/right
     else if (oled_menuItem == OLED_Developer_HSyncAdjust) {
-        showMenu("Developer", "HS left/right");
+        showMenu("Desenvolvedor", "HS left/right");
         OSD_handleCommand(OSD_CMD_DEV_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -111,7 +111,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_HTotalAdjust - HTotal -/+
     else if (oled_menuItem == OLED_Developer_HTotalAdjust) {
-        showMenu("Developer", "HTotal -/+");
+        showMenu("Desenvolvedor", "HTotal -/+");
         OSD_handleCommand(OSD_CMD_DEV_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -144,7 +144,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_DebugView - Debug view
     else if (oled_menuItem == OLED_Developer_DebugView) {
-        showMenu("Developer", "Debug view");
+        showMenu("Desenvolvedor", "Visão Debug");
         OSD_handleCommand(OSD_CMD_DEV_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -174,7 +174,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_ADCFilter - ADC filter
     else if (oled_menuItem == OLED_Developer_ADCFilter) {
-        showMenu("Developer", "ADC filter");
+        showMenu("Desenvolvedor", "Filtro ADC");
         OSD_handleCommand(OSD_CMD_DEV_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -204,7 +204,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_FreezeCapture - Freeze capture
     else if (oled_menuItem == OLED_Developer_FreezeCapture) {
-        showMenu("Developer", "Freeze capture");
+        showMenu("Desenvolvedor", "Congelar Captura");
         OSD_handleCommand(OSD_CMD_DEV_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -236,7 +236,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_ResyncHTotal - Resync HTotal (command '.')
     else if (oled_menuItem == OLED_Developer_ResyncHTotal) {
-        showMenu("Developer", "Resync HTotal");
+        showMenu("Desenvolvedor", "Resync HTotal");
         OSD_handleCommand(OSD_CMD_DEV_PAGE3_VALUES);
 
         if (irDecode()) {
@@ -266,7 +266,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_CycleSDRAM - Cycle SDRAM (command 'l')
     else if (oled_menuItem == OLED_Developer_CycleSDRAM) {
-        showMenu("Developer", "Cycle SDRAM");
+        showMenu("Desenvolvedor", "Ciclar SDRAM");
         OSD_handleCommand(OSD_CMD_DEV_PAGE3_VALUES);
 
         if (irDecode()) {
@@ -296,7 +296,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_PLLDivider - PLL divider (command 'n' to increase, 'M' to decrease)
     else if (oled_menuItem == OLED_Developer_PLLDivider) {
-        showMenu("Developer", "PLL div");
+        showMenu("Desenvolvedor", "PLL div");
         OSD_handleCommand(OSD_CMD_DEV_PAGE3_VALUES);
 
         if (irDecode()) {
@@ -330,7 +330,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_InvertSync - Invert Sync (command '8')
     else if (oled_menuItem == OLED_Developer_InvertSync) {
-        showMenu("Developer", "Invert Sync");
+        showMenu("Desenvolvedor", "Invert Sync");
         OSD_handleCommand(OSD_CMD_DEV_PAGE4_VALUES);
 
         if (irDecode()) {
@@ -360,7 +360,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_SyncWatcher - SyncWatcher (command 'm')
     else if (oled_menuItem == OLED_Developer_SyncWatcher) {
-        showMenu("Developer", "SyncWatcher");
+        showMenu("Desenvolvedor", "SyncWatcher");
         OSD_handleCommand(OSD_CMD_DEV_PAGE4_VALUES);
 
         if (irDecode()) {
@@ -390,7 +390,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_SyncProcessor - SyncProcessor (command 'l' action)
     else if (oled_menuItem == OLED_Developer_SyncProcessor) {
-        showMenu("Developer", "SyncProcessor");
+        showMenu("Desenvolvedor", "SyncProcessor");
         OSD_handleCommand(OSD_CMD_DEV_PAGE4_VALUES);
 
         if (irDecode()) {
@@ -422,7 +422,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_Oversampling - Oversampling (command 'o')
     else if (oled_menuItem == OLED_Developer_Oversampling) {
-        showMenu("Developer", "Oversampling");
+        showMenu("Desenvolvedor", "Oversampling");
         OSD_handleCommand(OSD_CMD_DEV_PAGE5_VALUES);
 
         if (irDecode()) {
@@ -452,7 +452,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_SnapFrameRate - 60/50Hz HDMI (command 'S')
     else if (oled_menuItem == OLED_Developer_SnapFrameRate) {
-        showMenu("Developer", "60/50Hz HDMI");
+        showMenu("Desenvolvedor", "60/50Hz HDMI");
         OSD_handleCommand(OSD_CMD_DEV_PAGE5_VALUES);
 
         if (irDecode()) {
@@ -482,7 +482,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_IFAutoOffset - IF Auto Offset (command 'E')
     else if (oled_menuItem == OLED_Developer_IFAutoOffset) {
-        showMenu("Developer", "IF Auto Offset");
+        showMenu("Desenvolvedor", "IF Auto Offset");
         OSD_handleCommand(OSD_CMD_DEV_PAGE5_VALUES);
 
         if (irDecode()) {
@@ -514,7 +514,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_SOGLevel - SOG Level-- (command 'z')
     else if (oled_menuItem == OLED_Developer_SOGLevel) {
-        showMenu("Developer", "SOG Level--");
+        showMenu("Desenvolvedor", "SOG Level--");
         OSD_handleCommand(OSD_CMD_DEV_PAGE6_VALUES);
 
         if (irDecode()) {
@@ -544,7 +544,7 @@ bool IR_handleDeveloperMenu()
 
     // OLED_Developer_ResetChip - Reset Chip (command 'q')
     else if (oled_menuItem == OLED_Developer_ResetChip) {
-        showMenu("Developer", "Reset Chip");
+        showMenu("Desenvolvedor", "Resetar Chip");
         OSD_handleCommand(OSD_CMD_DEV_PAGE6_VALUES);
 
         if (irDecode()) {

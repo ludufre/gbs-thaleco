@@ -24,6 +24,6 @@ void handle_FirmwareVersion(void)
     OSD_writeStringAtRow(2, 17, GBS_FW_VERSION);
 
     // Row 3: ADV Controller version
-    OSD_writeStringAtRow(3, 1, "ADV Control");
+    OSD_writeStringAtRow(3, 1, "Controle ADV");
     OSD_writeStringAtRow(3, 17, ADV_FW_VERSION);
 }

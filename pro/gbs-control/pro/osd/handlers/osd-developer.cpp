@@ -40,11 +40,11 @@ void handle_Developer_Page2(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, '2', true);
-    OSD_writeStringAtRow(1, 1, "Debug view");
+    OSD_writeStringAtRow(1, 1, "Visao Debug");
     OSD_drawDashRange(1, 11, 22);
-    OSD_writeStringAtRow(2, 1, "ADC filter");
+    OSD_writeStringAtRow(2, 1, "Filtro ADC");
     OSD_drawDashRange(2, 11, 22);
-    OSD_writeStringAtRow(3, 1, "Freeze capture");
+    OSD_writeStringAtRow(3, 1, "Congelar Captura");
     OSD_drawDashRange(3, 15, 22);
 }
 
@@ -64,7 +64,7 @@ void handle_Developer_Page3(void)
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, '3', true);
     OSD_writeStringAtRow(1, 1, "Resync HTotal");
-    OSD_writeStringAtRow(2, 1, "Cycle SDRAM");
+    OSD_writeStringAtRow(2, 1, "Ciclar SDRAM");
     OSD_drawDashRange(2, 12, 19);
     OSD_writeStringAtRow(3, 1, "PLL div++");
     OSD_drawDashRange(3, 10, 21);
@@ -155,7 +155,7 @@ void handle_Developer_Page6(void)
     OSD_writePageIcons(true, '6', false);
     OSD_writeStringAtRow(1, 1, "SOG Level--");
     OSD_drawDashRange(1, 12, 16);
-    OSD_writeStringAtRow(2, 1, "Reset Chip");
+    OSD_writeStringAtRow(2, 1, "Resetar Chip");
 }
 
 void handle_Developer_Page6_Values(void)

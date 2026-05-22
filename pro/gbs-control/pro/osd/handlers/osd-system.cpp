@@ -18,9 +18,9 @@ void handle_SysSettings_Page1(void)
     OSD_writePageIcons(false, '1', true);
     OSD_writeStringAtRow(1, 1, "Sync Stripper", syncStripperAvailable ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
     OSD_drawDashRange(1, 14, 22, syncStripperAvailable ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
-    OSD_writeStringAtRow(2, 1, "Matched presets");
+    OSD_writeStringAtRow(2, 1, "Match Presets");
     OSD_drawDashRange(2, 16, 22);
-    OSD_writeStringAtRow(3, 1, "Deinterlace");
+    OSD_writeStringAtRow(3, 1, "Desentrelacar");
     OSD_drawDashRange(3, 12, 17);
 }
 
@@ -32,7 +32,7 @@ void handle_SysSettings_Page1_Values(void)
     OSD_writeOnOff(1, uopt->advSyncStripper == 1, syncStripperAvailable ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
     OSD_writeOnOff(2, uopt->matchPresetSource);
     if (uopt->deintMode == 0) {
-        OSD_writeStringAtRow(3, 18, "Adaptive");
+        OSD_writeStringAtRow(3, 18, "Adaptativo");
     } else {
         OSD_writeStringAtRow(3, 18, "-----Bob");
     }
@@ -44,9 +44,9 @@ void handle_SysSettings_Page2(void)
     OSD_writePageIcons(true, '2', true);
     OSD_writeStringAtRow(1, 1, "Force 50Hz to 60Hz");
     OSD_drawDashRange(1, 19, 22);
-    OSD_writeStringAtRow(2, 1, "Lock method");
+    OSD_writeStringAtRow(2, 1, "Metodo de Lock");
     OSD_drawDashRange(2, 12, 13);
-    OSD_writeStringAtRow(3, 1, "ADC calibration");
+    OSD_writeStringAtRow(3, 1, "Calibracao ADC");
     OSD_drawDashRange(3, 16, 22);
 }
 
@@ -67,9 +67,9 @@ void handle_SysSettings_Page4(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, '3', false);
-    OSD_writeStringAtRow(1, 1, "Frame Time lock");
+    OSD_writeStringAtRow(1, 1, "Frame Time Lock");
     OSD_drawDashRange(1, 16, 22);
-    OSD_writeStringAtRow(2, 1, "EnableFrameTimeLock");
+    OSD_writeStringAtRow(2, 1, "FrameTimeLock");
     OSD_drawDashRange(2, 20, 22);
     OSD_writeStringAtRow(3, 1, "HDMI Limited Range");
     OSD_drawDashRange(3, 19, 22);

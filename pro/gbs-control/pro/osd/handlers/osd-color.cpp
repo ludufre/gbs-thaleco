@@ -16,9 +16,9 @@ void handle_ColorSettings_Page1(void)
     OSD_writePageIcons(false, '1', true);
     OSD_writeStringAtRow(1, 1, "Red");
     OSD_drawDashRange(1, 4, 22);
-    OSD_writeStringAtRow(2, 1, "Green");
+    OSD_writeStringAtRow(2, 1, "Verde");
     OSD_drawDashRange(2, 6, 22);
-    OSD_writeStringAtRow(3, 1, "Blue");
+    OSD_writeStringAtRow(3, 1, "Azul");
     OSD_drawDashRange(3, 5, 22);
 }
 
@@ -34,13 +34,13 @@ void handle_ColorSettings_Page2(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, '2', true);
-    OSD_writeStringAtRow(1, 1, "ADC gain");
+    OSD_writeStringAtRow(1, 1, "Ganho ADC");
     OSD_drawDashRange(1, 9, 18);
     OSD_drawDashRange(1, 22, 22);
     OSD_writeStringAtRow(2, 1, "Scanlines", areScanLinesAllowed() ? OSD_TEXT_NORMAL : OSD_TEXT_DISABLED);
     OSD_drawDashRange(2, 10, 19, areScanLinesAllowed() ? OSD_TEXT_NORMAL : OSD_TEXT_DISABLED);
     OSD_drawDashRange(2, 22, 22, areScanLinesAllowed() ? OSD_TEXT_NORMAL : OSD_TEXT_DISABLED);
-    OSD_writeStringAtRow(3, 1, "Line filter");
+    OSD_writeStringAtRow(3, 1, "Filtro de Linha");
     OSD_drawDashRange(3, 12, 22);
 }
 
@@ -60,16 +60,16 @@ void handle_ColorSettings_Page3(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, '3', true);
-    OSD_writeStringAtRow(1, 1, "Sharpness");
+    OSD_writeStringAtRow(1, 1, "Nitidez");
     OSD_drawDashRange(1, 10, 22);
     OSD_writeStringAtRow(2, 1, "Peaking");
     if (isPeakingLocked()) {
         OSD_drawDashRange(2, 8, 19);
-        OSD_writeStringAtRow(2, 20, "LOCKED");
+        OSD_writeStringAtRow(2, 20, "TRAVADO");
     } else {
         OSD_drawDashRange(2, 8, 22);
     }
-    OSD_writeStringAtRow(3, 1, "Step response");
+    OSD_writeStringAtRow(3, 1, "Step Response");
     OSD_drawDashRange(3, 14, 22);
 }
 
@@ -78,7 +78,7 @@ void handle_ColorSettings_Page3_Values(void)
     OSD_writeOnOff(1, GBS::VDS_PK_LB_GAIN::read() != 0x16);
 
     if (isPeakingLocked()) {
-        OSD_writeStringAtRow(2, 20, "LOCKED");
+        OSD_writeStringAtRow(2, 20, "TRAVADO");
     } else {
         OSD_drawDashRange(2, 20, 22);
         OSD_writeOnOff(2, uopt->wantPeaking != 0);
@@ -96,7 +96,7 @@ void handle_ColorSettings_Page4(void)
     OSD_drawDashRange(1, 7, 22);
     OSD_writeStringAtRow(2, 1, "Color");
     OSD_drawDashRange(2, 6, 14);
-    OSD_writeStringAtRow(3, 1, "Default Color");
+    OSD_writeStringAtRow(3, 1, "Cor Padrao");
 }
 
 void handle_ColorSettings_Page4_Values(void)

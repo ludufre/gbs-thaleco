@@ -110,7 +110,7 @@ bool IR_handleADVSettings()
 
     // OLED_SystemSettings_SVAVInput_Bright (Page 2, row 1)
     else if (oled_menuItem == OLED_SystemSettings_SVAVInput_Bright) {
-        showMenu("M>Sys>SvAv Set", "Brightness");
+        showMenu("M>Sys>SvAv Set", "Brilho");
         OSD_handleCommand(OSD_CMD_SVAVINPUT_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -160,7 +160,7 @@ bool IR_handleADVSettings()
 
     // OLED_SystemSettings_SVAVInput_Contrast (Page 2, row 2)
     else if (oled_menuItem == OLED_SystemSettings_SVAVInput_Contrast) {
-        showMenu("M>Sys>SvAv Set", "Contrast");
+        showMenu("M>Sys>SvAv Set", "Contraste");
         OSD_handleCommand(OSD_CMD_SVAVINPUT_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -210,7 +210,7 @@ bool IR_handleADVSettings()
 
     // OLED_SystemSettings_SVAVInput_Saturation (Page 2, row 3)
     else if (oled_menuItem == OLED_SystemSettings_SVAVInput_Saturation) {
-        showMenu("M>Sys>SvAv Set", "Saturation");
+        showMenu("M>Sys>SvAv Set", "Saturação");
         OSD_handleCommand(OSD_CMD_SVAVINPUT_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -312,7 +312,7 @@ bool IR_handleADVSettings()
 
     // OLED_SystemSettings_SVAVInput_Default (Page 3, row 2)
     else if (oled_menuItem == OLED_SystemSettings_SVAVInput_Default) {
-        showMenu("M>Sys>SvAv Set", "Default");
+        showMenu("M>Sys>SvAv Set", "Padrão");
         OSD_handleCommand(OSD_CMD_SVAVINPUT_PAGE3_VALUES);
 
         if (irDecode()) {
@@ -364,7 +364,7 @@ bool IR_handleACESettings()
 {
     // OLED_ACESettings_Enable (Page 1, row 1)
     if (oled_menuItem == OLED_ACESettings_Enable) {
-        showMenuToggle("M>ACE Settings", "Enable", uopt->advACE);
+        showMenuToggle("M>ACE Settings", "Ativar", uopt->advACE);
         OSD_handleCommand(OSD_CMD_ACE_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -398,7 +398,7 @@ bool IR_handleACESettings()
 
     // OLED_ACESettings_LumaGain (Page 1, row 2)
     else if (oled_menuItem == OLED_ACESettings_LumaGain) {
-        showMenu("M>ACE Settings", "Luma Gain");
+        showMenu("M>ACE Settings", "Ganho Luma");
         OSD_handleCommand(OSD_CMD_ACE_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -452,7 +452,7 @@ bool IR_handleACESettings()
 
     // OLED_ACESettings_ChromaGain (Page 1, row 3)
     else if (oled_menuItem == OLED_ACESettings_ChromaGain) {
-        showMenu("M>ACE Settings", "Chroma Gain");
+        showMenu("M>ACE Settings", "Ganho Chroma");
         OSD_handleCommand(OSD_CMD_ACE_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -506,7 +506,7 @@ bool IR_handleACESettings()
 
     // OLED_ACESettings_ChromaMax (Page 2, row 1)
     else if (oled_menuItem == OLED_ACESettings_ChromaMax) {
-        showMenu("M>ACE Settings", "Chroma Max");
+        showMenu("M>ACE Settings", "Chroma Máx.");
         OSD_handleCommand(OSD_CMD_ACE_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -560,7 +560,7 @@ bool IR_handleACESettings()
 
     // OLED_ACESettings_GammaGain (Page 2, row 2)
     else if (oled_menuItem == OLED_ACESettings_GammaGain) {
-        showMenu("M>ACE Settings", "Gamma Gain");
+        showMenu("M>ACE Settings", "Ganho Gamma");
         OSD_handleCommand(OSD_CMD_ACE_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -614,7 +614,7 @@ bool IR_handleACESettings()
 
     // OLED_ACESettings_ResponseSpeed (Page 2, row 3)
     else if (oled_menuItem == OLED_ACESettings_ResponseSpeed) {
-        showMenu("M>ACE Settings", "Response Spd");
+        showMenu("M>ACE Settings", "Velocidade");
         OSD_handleCommand(OSD_CMD_ACE_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -668,7 +668,7 @@ bool IR_handleACESettings()
 
     // OLED_ACESettings_Default (Page 3, row 1)
     else if (oled_menuItem == OLED_ACESettings_Default) {
-        showMenu("M>ACE Settings", "Default");
+        showMenu("M>ACE Settings", "Padrão");
         OSD_handleCommand(OSD_CMD_ACE_PAGE3_VALUES);
 
         if (irDecode()) {
@@ -875,7 +875,7 @@ bool IR_handleVideoFiltersSettings()
 
     // OLED_VideoFiltersSettings_SVOverride (Page 1, row 2 for SV) - Override (Auto/Manual)
     else if (oled_menuItem == OLED_VideoFiltersSettings_SVOverride) {
-        showMenu("M>Filters", "Override");
+        showMenu("M>Filters", "Forçar");
         OSD_handleCommand(OSD_CMD_VIDEOFILTERS_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -909,7 +909,7 @@ bool IR_handleVideoFiltersSettings()
 
     // OLED_VideoFiltersSettings_Bandwidth (Page 1, row 3)
     else if (oled_menuItem == OLED_VideoFiltersSettings_Bandwidth) {
-        showMenu("M>Filters", "Bandwidth");
+        showMenu("M>Filters", "Largura");
         OSD_handleCommand(OSD_CMD_VIDEOFILTERS_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -970,7 +970,7 @@ bool IR_handleVideoFiltersSettings()
 
     // OLED_VideoFiltersSettings_LumaMode (Page 2, row 1)
     else if (oled_menuItem == OLED_VideoFiltersSettings_LumaMode) {
-        showMenu("M>Filters", "Luma Mode");
+        showMenu("M>Filters", "Modo Luma");
         OSD_handleCommand(OSD_CMD_VIDEOFILTERS_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -1030,7 +1030,7 @@ bool IR_handleVideoFiltersSettings()
 
     // OLED_VideoFiltersSettings_ChromaMode (Page 2, row 2)
     else if (oled_menuItem == OLED_VideoFiltersSettings_ChromaMode) {
-        showMenu("M>Filters", "Chroma Mode");
+        showMenu("M>Filters", "Modo Chroma");
         OSD_handleCommand(OSD_CMD_VIDEOFILTERS_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -1150,7 +1150,7 @@ bool IR_handleVideoFiltersSettings()
 
     // OLED_VideoFiltersSettings_Default (Page 3, row 1) - Reset Filters to Defaults
     else if (oled_menuItem == OLED_VideoFiltersSettings_Default) {
-        showMenu("M>Filters", "Default");
+        showMenu("M>Filters", "Padrão");
         OSD_handleCommand(OSD_CMD_VIDEOFILTERS_PAGE3_VALUES);
 
         if (irDecode()) {
@@ -1227,7 +1227,7 @@ bool IR_handleI2PSettings()
 
     // OLED_I2PSettings_Smooth (Page 1, row 2)
     else if (oled_menuItem == OLED_I2PSettings_Smooth) {
-        showMenuToggle("M>I2P Settings", "Smooth", uopt->advSmooth);
+        showMenuToggle("M>I2P Settings", "Suave", uopt->advSmooth);
         OSD_handleCommand(OSD_CMD_I2P_PAGE1_VALUES);
 
         if (irDecode()) {

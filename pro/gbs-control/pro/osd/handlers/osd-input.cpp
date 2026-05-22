@@ -61,5 +61,5 @@ void handle_InfoDisplay_Source(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, 'I', true);
-    OSD_writeStringAtRow(1, 1, "Setting");
+    OSD_writeStringAtRow(1, 1, "Ajuste");
 }

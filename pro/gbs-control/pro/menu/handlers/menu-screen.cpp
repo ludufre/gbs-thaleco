@@ -28,7 +28,7 @@ extern bool loadSlotSettings();
 bool IR_handleScreenSettings(void)
 {
     if (oled_menuItem == OLED_ScreenSettings_Move) {
-        showMenu("Menu->Screen", "Move");
+        showMenu("Menu->Screen", "Mover");
         OSD_handleCommand(OSD_CMD_SCREEN_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -57,7 +57,7 @@ bool IR_handleScreenSettings(void)
     }
 
     if (oled_menuItem == OLED_ScreenSettings_Scale) {
-        showMenu("Menu->Screen", "Scale");
+        showMenu("Menu->Screen", "Escala");
         OSD_handleCommand(OSD_CMD_SCREEN_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -86,7 +86,7 @@ bool IR_handleScreenSettings(void)
     }
 
     if (oled_menuItem == OLED_ScreenSettings_Borders) {
-        showMenu("Menu->Screen", "Borders");
+        showMenu("Menu->Screen", "Bordas");
         OSD_handleCommand(OSD_CMD_SCREEN_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -277,7 +277,7 @@ bool IR_handleScreenSettings(void)
     }
 
     if (oled_menuItem == OLED_ScreenSettings_FullHeight) {
-        showMenuToggle("Menu->Screen", "Full height", uopt->wantFullHeight);
+        showMenuToggle("Menu->Screen", "Altura Total", uopt->wantFullHeight);
         OSD_handleCommand(OSD_CMD_SCREEN_PAGE2_VALUES);
 
         if (irDecode()) {

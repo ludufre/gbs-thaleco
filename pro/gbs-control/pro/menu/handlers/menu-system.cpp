@@ -72,7 +72,7 @@ bool IR_handleSystemSettings()
 
     // OLED_SystemSettings_MatchedPresets
     else if (oled_menuItem == OLED_SystemSettings_MatchedPresets) {
-        showMenuToggle("Menu->System", "Matched presets", uopt->matchPresetSource);
+        showMenuToggle("Menu->System", "Match Presets", uopt->matchPresetSource);
         OSD_handleCommand(OSD_CMD_SYS_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -102,7 +102,7 @@ bool IR_handleSystemSettings()
 
     // OLED_SystemSettings_Deinterlace
     else if (oled_menuItem == OLED_SystemSettings_Deinterlace) {
-        showMenuValue("Menu->System", "Deinterlace", uopt->deintMode ? "Bob" : "Adaptive");
+        showMenuValue("Menu->System", "Desentrelaçar", uopt->deintMode ? "Bob" : "Adaptativo");
         OSD_handleCommand(OSD_CMD_SYS_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -177,7 +177,7 @@ bool IR_handleSystemSettings()
 
     // OLED_SystemSettings_LockMethod
     else if (oled_menuItem == OLED_SystemSettings_LockMethod) {
-        showMenuValue("Menu->System", "Lock Method", uopt->frameTimeLockMethod ? "1Vtotal only" : "0Vtotal+VSST");
+        showMenuValue("Menu->System", "Método de Lock", uopt->frameTimeLockMethod ? "1Vtotal only" : "0Vtotal+VSST");
         OSD_handleCommand(OSD_CMD_SYS_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -205,7 +205,7 @@ bool IR_handleSystemSettings()
 
     // OLED_SystemSettings_ADCCalibration
     else if (oled_menuItem == OLED_SystemSettings_ADCCalibration) {
-        showMenuToggle("Menu->System", "ADC calibration", uopt->enableCalibrationADC);
+        showMenuToggle("Menu->System", "Calibração ADC", uopt->enableCalibrationADC);
         OSD_handleCommand(OSD_CMD_SYS_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -265,7 +265,7 @@ bool IR_handleSystemSettings()
 
     // OLED_SystemSettings_ClockGenerator
     else if (oled_menuItem == OLED_SystemSettings_ClockGenerator) {
-        showMenuToggle("Menu->System", "Clock generator", !uopt->disableExternalClockGenerator);
+        showMenuToggle("Menu->System", "Gerador de Clock", !uopt->disableExternalClockGenerator);
         OSD_handleCommand(OSD_CMD_SYS_PAGE4_VALUES);
 
         if (irDecode()) {

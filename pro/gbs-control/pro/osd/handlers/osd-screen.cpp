@@ -13,9 +13,9 @@ void handle_ScreenSettings_Page1(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(false, '1', true);
-    OSD_writeStringAtRow(1, 1, "Move");
-    OSD_writeStringAtRow(2, 1, "Scale");
-    OSD_writeStringAtRow(3, 1, "Borders");
+    OSD_writeStringAtRow(1, 1, "Mover");
+    OSD_writeStringAtRow(2, 1, "Escala");
+    OSD_writeStringAtRow(3, 1, "Bordas");
 }
 
 void handle_ScreenSettings_Page1_Values(void)
@@ -41,7 +41,7 @@ void handle_ScreenSettings_Page2(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, '2', false);
-    OSD_writeStringAtRow(1, 1, "Full height");
+    OSD_writeStringAtRow(1, 1, "Altura Total");
     OSD_drawDashRange(1, 12, 22);
 }
 

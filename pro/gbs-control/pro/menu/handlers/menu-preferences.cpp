@@ -20,7 +20,7 @@ bool IR_handlePreferencesMenu()
 {
     // OLED_Preferences_Theme - Theme selection with left/right arrows
     if (oled_menuItem == OLED_Preferences_Theme) {
-        showMenu("Preferences", "Theme");
+        showMenu("Preferências", "Tema");
         OSD_handleCommand(OSD_CMD_PREFERENCES_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -75,7 +75,7 @@ bool IR_handlePreferencesMenu()
 
     // OLED_Preferences_Volume - Volume adjustment with left/right arrows (with key repeat)
     else if (oled_menuItem == OLED_Preferences_Volume) {
-        showMenu("Preferences", "Volume");
+        showMenu("Preferências", "Volume");
         OSD_handleCommand(OSD_CMD_PREFERENCES_PAGE1_VALUES);
 
         if (irDecode()) {
@@ -127,7 +127,7 @@ bool IR_handlePreferencesMenu()
 
     // OLED_Preferences_Mute - Mute toggle with OK button
     else if (oled_menuItem == OLED_Preferences_Mute) {
-        showMenuToggle("Preferences", "Mute", uopt->audioMuted);
+        showMenuToggle("Preferências", "Mudo", uopt->audioMuted);
         OSD_handleCommand(OSD_CMD_PREFERENCES_PAGE1_VALUES);
 
         if (irDecode()) {

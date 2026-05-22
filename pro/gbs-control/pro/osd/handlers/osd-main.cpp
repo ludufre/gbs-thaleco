@@ -25,11 +25,11 @@ void handle_MainMenu_Page1(void)
     bool isSvAvInput = (uopt->activeInputType == InputTypeSV) || (uopt->activeInputType == InputTypeAV);
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(false, '1', true);
-    OSD_writeStringAtRow(1, 1, "Input source");
+    OSD_writeStringAtRow(1, 1, "Entrada");
     OSD_writeCharAtRow(1, 0xFF, arrow_right_icon, (selectedMenuLine == 1) ? OSD_TEXT_SELECTED : OSD_CURSOR_INACTIVE);
     OSD_writeStringAtRow(2, 1, "AV/SV settings", isSvAvInput ? OSD_COLOR_AUTO : OSD_TEXT_DISABLED);
     OSD_writeCharAtRow(2, 0xFF, (selectedMenuLine == 2) ? arrow_right_icon : ' ', (selectedMenuLine == 2) ? (isSvAvInput ? OSD_TEXT_SELECTED : OSD_TEXT_DISABLED) : OSD_CURSOR_INACTIVE);
-    OSD_writeStringAtRow(3, 1, "Output resolution");
+    OSD_writeStringAtRow(3, 1, "Resolucao");
     OSD_writeCharAtRow(3, 0xFF, arrow_right_icon, (selectedMenuLine == 3) ? OSD_TEXT_SELECTED : OSD_CURSOR_INACTIVE);
 }
 
@@ -37,11 +37,11 @@ void handle_MainMenu_Page2(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, '2', true);
-    OSD_writeStringAtRow(1, 1, "Screen settings");
+    OSD_writeStringAtRow(1, 1, "Tela");
     OSD_writeCharAtRow(1, 0xFF, arrow_right_icon, (selectedMenuLine == 1) ? OSD_TEXT_SELECTED : OSD_CURSOR_INACTIVE);
-    OSD_writeStringAtRow(2, 1, "Picture settings");
+    OSD_writeStringAtRow(2, 1, "Imagem");
     OSD_writeCharAtRow(2, 0xFF, arrow_right_icon, (selectedMenuLine == 2) ? OSD_TEXT_SELECTED : OSD_CURSOR_INACTIVE);
-    OSD_writeStringAtRow(3, 1, "System settings");
+    OSD_writeStringAtRow(3, 1, "Sistema");
     OSD_writeCharAtRow(3, 0xFF, arrow_right_icon, (selectedMenuLine == 3) ? OSD_TEXT_SELECTED : OSD_CURSOR_INACTIVE);
 }
 
@@ -49,11 +49,11 @@ void handle_MainMenu_Page3(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, '3', true);
-    OSD_writeStringAtRow(1, 1, "Preferences");
+    OSD_writeStringAtRow(1, 1, "Preferencias");
     OSD_writeCharAtRow(1, 0xFF, arrow_right_icon, (selectedMenuLine == 1) ? OSD_TEXT_SELECTED : OSD_CURSOR_INACTIVE);
-    OSD_writeStringAtRow(2, 1, "Developer");
+    OSD_writeStringAtRow(2, 1, "Desenvolvedor");
     OSD_writeCharAtRow(2, 0xFF, arrow_right_icon, (selectedMenuLine == 2) ? OSD_TEXT_SELECTED : OSD_CURSOR_INACTIVE);
-    OSD_writeStringAtRow(3, 1, "Firmware version");
+    OSD_writeStringAtRow(3, 1, "Versao Firmware");
     OSD_writeCharAtRow(3, 0xFF, arrow_right_icon, (selectedMenuLine == 3) ? OSD_TEXT_SELECTED : OSD_CURSOR_INACTIVE);
 }
 
@@ -61,8 +61,8 @@ void handle_MainMenu_Page4(void)
 {
     OSD_setMenuLineColors(selectedMenuLine);
     OSD_writePageIcons(true, '4', false);
-    OSD_writeStringAtRow(1, 1, "Factory reset");
-    OSD_writeStringAtRow(2, 1, "Restart");
+    OSD_writeStringAtRow(1, 1, "Restaurar Fabrica");
+    OSD_writeStringAtRow(2, 1, "Reiniciar");
 }
 
 // ====================================================================================
@@ -78,7 +78,7 @@ void handle_FactoryResetConfirm(void)
     OSD_setMenuLineColors(0);
 
     // Row 1-2: Warning text (no colors)
-    OSD_writeStringAtRow(1, 1, "Reset all settings to");
+    OSD_writeStringAtRow(1, 1, "Restaurar tudo para");
     OSD_writeStringAtRow(2, 1, "factory defaults");
 
     // Row 3: Yes / No options with selection indicator

@@ -23,7 +23,7 @@ bool IR_handleMuteDisplay()
         return false;
     }
 
-    showMenuCentered(uopt->audioMuted ? "MUTE ON" : "MUTE OFF");
+    showMenuCentered(uopt->audioMuted ? "MUDO ON" : "MUDO OFF");
 
     // TV OSD display (delegated to osd-misc.cpp)
     OSD_renderMuteDisplay(uopt->audioMuted);

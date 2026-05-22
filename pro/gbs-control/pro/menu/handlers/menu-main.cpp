@@ -21,7 +21,7 @@ bool IR_handleMainMenu()
 
     // OLED_Input - Main menu entry (row 1, page 1)
     if (oled_menuItem == OLED_Input) {
-        showMenu("Menu->>>", "Input source");
+        showMenu("Menu->>>", "Entrada");
 
         if (irDecode()) {
             switch (results.value) {
@@ -78,7 +78,7 @@ bool IR_handleMainMenu()
 
     // OLED_OutputResolution - Main menu entry (row 3, page 1)
     else if (oled_menuItem == OLED_OutputResolution) {
-        showMenu("Menu->>>", "Output Resolution");
+        showMenu("Menu->>>", "Resolução");
 
         if (irDecode()) {
             switch (results.value) {
@@ -105,7 +105,7 @@ bool IR_handleMainMenu()
 
     // OLED_ScreenSettings - Main menu entry (row 1, page 2)
     else if (oled_menuItem == OLED_ScreenSettings) {
-        showMenu("Menu->>>", "Screen Settings");
+        showMenu("Menu->>>", "Tela");
 
         if (irDecode()) {
             switch (results.value) {
@@ -134,7 +134,7 @@ bool IR_handleMainMenu()
 
     // OLED_ColorSettings - Main menu entry (row 2, page 2)
     else if (oled_menuItem == OLED_ColorSettings) {
-        showMenu("Menu->>>", "Picture Settings");
+        showMenu("Menu->>>", "Imagem");
 
         if (irDecode()) {
             switch (results.value) {
@@ -161,7 +161,7 @@ bool IR_handleMainMenu()
 
     // OLED_SystemSettings - Main menu entry (row 3, page 2)
     else if (oled_menuItem == OLED_SystemSettings) {
-        showMenu("Menu->>>", "System Settings");
+        showMenu("Menu->>>", "Sistema");
 
         if (irDecode()) {
             switch (results.value) {
@@ -190,7 +190,7 @@ bool IR_handleMainMenu()
 
     // OLED_Preferences - Main menu entry (row 1, page 3)
     else if (oled_menuItem == OLED_Preferences) {
-        showMenu("Menu->>>", "Preferences");
+        showMenu("Menu->>>", "Preferências");
 
         if (irDecode()) {
             switch (results.value) {
@@ -217,7 +217,7 @@ bool IR_handleMainMenu()
 
     // OLED_FirmwareVersion - Main menu entry (row 3, page 3)
     else if (oled_menuItem == OLED_FirmwareVersion) {
-        showMenu("Menu->>>", "Firmware Version");
+        showMenu("Menu->>>", "Versão Firmware");
 
         if (irDecode()) {
             switch (results.value) {
@@ -246,7 +246,7 @@ bool IR_handleMainMenu()
 
     // OLED_FirmwareVersion_Info - Firmware version info screen (read-only)
     else if (oled_menuItem == OLED_FirmwareVersion_Info) {
-        showMenu("Firmware", "Version");
+        showMenu("Firmware", "Versão");
         OSD_handleCommand(OSD_CMD_FIRMWARE_VERSION);
 
         if (irDecode()) {
@@ -268,7 +268,7 @@ bool IR_handleMainMenu()
 
     // OLED_FactoryReset - Main menu entry (row 1, page 4)
     else if (oled_menuItem == OLED_FactoryReset) {
-        showMenu("Menu->>>", "Factory Reset");
+        showMenu("Menu->>>", "Restaurar Fábrica");
 
         if (irDecode()) {
             switch (results.value) {
@@ -298,7 +298,7 @@ bool IR_handleMainMenu()
 
     // OLED_FactoryReset_Confirm - Factory Reset confirmation screen
     else if (oled_menuItem == OLED_FactoryReset_Confirm) {
-        showMenu("Factory", "Reset?");
+        showMenu("Fábrica", "Reset?");
         OSD_handleCommand(OSD_CMD_FACTORY_RESET_CONFIRM);
 
         if (irDecode()) {
@@ -335,7 +335,7 @@ bool IR_handleMainMenu()
 
     // OLED_Restart - Main menu entry (row 2, page 4)
     else if (oled_menuItem == OLED_Restart) {
-        showMenu("Menu->>>", "Restart");
+        showMenu("Menu->>>", "Reiniciar");
 
         if (irDecode()) {
             switch (results.value) {

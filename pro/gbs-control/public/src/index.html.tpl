@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <title>GBS-Control Pro</title>
@@ -138,16 +138,16 @@
           <fieldset class="gbs-fieldset" style="padding: 8px 2px">
             <legend class="gbs-fieldset__legend gbs-fieldset__legend--help">
               <div class="gbs-icon">aspect_ratio</div>
-              <div>Resolution</div>
+              <div>Resolução</div>
             </legend>
             <!-- prettier-ignore -->
             <ul class="gbs-help">
-              <li>Choose an output resolution from these presets.</li>
-              <li>Your selection will also be used for startup. 1280x960 is recommended for NTSC sources, 1280x1024 for PAL.
+              <li>Escolha uma resolução de saída entre estes perfis.</li>
+              <li>Sua seleção também será usada na inicialização. 1280x960 é recomendado para fontes NTSC, 1280x1024 para PAL.
               </li>
-              <li>Use the "Matched Presets" option to switch between the two automatically (Preferences tab)
+              <li>Use a opção "Match Presets" para alternar entre os dois automaticamente (aba Preferências)
               </li>
-              <li>Selecting a resolution also makes it the new startup preset.</li>
+              <li>Selecionar uma resolução também a define como perfil de inicialização.</li>
             </ul>
             <div class="gbs-resolution">
               <button
@@ -200,7 +200,7 @@
               >
                 480p 576p
               </button>
-              <!-- PRO: 15KHz Downscale and Pass Through not supported
+              <!-- PRO: 15KHz Downscale and Passagem not supported
               <button
                 gbs-message="L"
                 gbs-message-type="user"
@@ -222,7 +222,7 @@
               >
                 <div class="gbs-icon">swap_calls</div>
                 <div class="gbs-button__resolution--pass-through">
-                  Pass Through
+                  Passagem
                 </div>
               </button>
               -->
@@ -231,17 +231,17 @@
           <fieldset class="gbs-fieldset" style="padding: 8px 2px">
             <legend class="gbs-fieldset__legend gbs-fieldset__legend--help">
               <div class="gbs-icon">cable</div>
-              <div>Input Source</div>
+              <div>Fonte de Entrada</div>
             </legend>
             <!-- prettier-ignore -->
             <ul class="gbs-help">
-              <li>Select the type of video input signal connected to your GBS-Control Pro.</li>
-              <li><strong>RGBs</strong>: RGB with separate sync (SCART, etc.)</li>
-              <li><strong>RGsB</strong>: RGB with sync on green</li>
-              <li><strong>VGA</strong>: VGA/RGBHV computer signal</li>
-              <li><strong>YPbPr</strong>: Component video (Y/Pb/Pr)</li>
-              <li><strong>S-Video</strong>: S-Video input</li>
-              <li><strong>AV</strong>: AV / Composite video</li>
+              <li>Selecione o tipo de sinal de vídeo conectado ao seu GBS-Control Pro.</li>
+              <li><strong>RGBs</strong>: RGB com sync separado (SCART, etc.)</li>
+              <li><strong>RGsB</strong>: RGB com sync no verde</li>
+              <li><strong>VGA</strong>: Sinal VGA/RGBHV de computador</li>
+              <li><strong>YPbPr</strong>: Vídeo componente (Y/Pb/Pr)</li>
+              <li><strong>S-Video</strong>: Entrada S-Video</li>
+              <li><strong>AV</strong>: AV / Vídeo Composto</li>
             </ul>
             <div class="gbs-resolution">
               <button
@@ -291,14 +291,14 @@
           <fieldset id="gbs-pro-cv-section" class="gbs-fieldset" style="padding: 8px 2px; display: none;">
             <legend class="gbs-fieldset__legend gbs-fieldset__legend--help">
               <div class="gbs-icon">tv</div>
-              <div>AV/S-Video Options</div>
+              <div>Opções AV/S-Video</div>
             </legend>
             <!-- prettier-ignore -->
             <ul class="gbs-help">
-              <li><strong>Format</strong>: Video format/standard for the input signal (Auto recommended)</li>
-              <li><strong>2X</strong>: Enable 2X line multiplication for sharper image</li>
-              <li><strong>Smooth</strong>: Enable smooth scaling for softer image</li>
-              <li><strong>ACE</strong>: Adaptive Contrast Enhancement for improved picture quality</li>
+              <li><strong>Formato</strong>: Formato/padrão do sinal de entrada (Auto recomendado)</li>
+              <li><strong>2X</strong>: Ativa multiplicação 2X de linha para imagem mais nítida</li>
+              <li><strong>Suave</strong>: Ativa escala suave para imagem mais macia</li>
+              <li><strong>ACE</strong>: Aprimoramento adaptativo de contraste para melhor qualidade de imagem</li>
             </ul>
             <div class="gbs-flex gbs-margin__bottom--16">
               <button
@@ -326,7 +326,7 @@
                 style="flex: 1;"
               >
                 <div class="gbs-icon">blur_on</div>
-                <div>Smooth</div>
+                <div>Suave</div>
               </button>
               <button
                 id="gbs-pro-ace"
@@ -342,19 +342,19 @@
           <fieldset id="gbs-pro-ace-section" class="gbs-fieldset" style="padding: 8px 2px; display: none;">
             <legend class="gbs-fieldset__legend gbs-fieldset__legend--help">
               <div class="gbs-icon">wb_sunny</div>
-              <div>ACE Settings</div>
+              <div>Ajustes ACE</div>
             </legend>
             <!-- prettier-ignore -->
             <ul class="gbs-help">
-              <li><strong>Luma Gain</strong>: Automatic contrast enhancement for luminance (0-31, default 13)</li>
-              <li><strong>Chroma Gain</strong>: Automatic saturation enhancement (0-15, default 8)</li>
-              <li><strong>Chroma Max</strong>: Maximum saturation threshold (0-15, default 8)</li>
-              <li><strong>Gamma Gain</strong>: Contrast enhancement via gamma (0-15, default 8)</li>
-              <li><strong>Response Speed</strong>: ACE adaptation speed (0-15, default 15)</li>
+              <li><strong>Ganho Luma</strong>: Aprimoramento automático de contraste para luminância (0-31, padrão 13)</li>
+              <li><strong>Ganho Chroma</strong>: Aprimoramento automático de saturação (0-15, padrão 8)</li>
+              <li><strong>Chroma Máx.</strong>: Limite máximo de saturação (0-15, padrão 8)</li>
+              <li><strong>Ganho Gamma</strong>: Aprimoramento de contraste via gama (0-15, padrão 8)</li>
+              <li><strong>Velocidade de Resposta</strong>: Velocidade de adaptação ACE (0-15, padrão 15)</li>
             </ul>
             <!-- Luma Gain -->
             <div class="gbs-flex gbs-margin__bottom--8">
-              <span style="flex: 1; padding: 8px;">Luma Gain</span>
+              <span style="flex: 1; padding: 8px;">Ganho Luma</span>
               <button
                 id="gbs-pro-ace-luma-dec"
                 class="gbs-button gbs-button__control"
@@ -373,7 +373,7 @@
             </div>
             <!-- Chroma Gain -->
             <div class="gbs-flex gbs-margin__bottom--8">
-              <span style="flex: 1; padding: 8px;">Chroma Gain</span>
+              <span style="flex: 1; padding: 8px;">Ganho Chroma</span>
               <button
                 id="gbs-pro-ace-chroma-dec"
                 class="gbs-button gbs-button__control"
@@ -392,7 +392,7 @@
             </div>
             <!-- Chroma Max -->
             <div class="gbs-flex gbs-margin__bottom--8">
-              <span style="flex: 1; padding: 8px;">Chroma Max</span>
+              <span style="flex: 1; padding: 8px;">Chroma Máx.</span>
               <button
                 id="gbs-pro-ace-chromamax-dec"
                 class="gbs-button gbs-button__control"
@@ -411,7 +411,7 @@
             </div>
             <!-- Gamma Gain -->
             <div class="gbs-flex gbs-margin__bottom--8">
-              <span style="flex: 1; padding: 8px;">Gamma Gain</span>
+              <span style="flex: 1; padding: 8px;">Ganho Gamma</span>
               <button
                 id="gbs-pro-ace-gamma-dec"
                 class="gbs-button gbs-button__control"
@@ -430,7 +430,7 @@
             </div>
             <!-- Response Speed -->
             <div class="gbs-flex gbs-margin__bottom--8">
-              <span style="flex: 1; padding: 8px;">Response Speed</span>
+              <span style="flex: 1; padding: 8px;">Velocidade de Resposta</span>
               <button
                 id="gbs-pro-ace-response-dec"
                 class="gbs-button gbs-button__control"
@@ -455,23 +455,23 @@
                 style="flex: 1;"
               >
                 <div class="gbs-icon">restore</div>
-                <div>Reset to Defaults</div>
+                <div>Restaurar Padrões</div>
               </button>
             </div>
           </fieldset>
           <fieldset id="gbs-pro-filters-section" class="gbs-fieldset" style="padding: 8px 2px; display: none;">
             <legend class="gbs-fieldset__legend gbs-fieldset__legend--help">
               <div class="gbs-icon">tune</div>
-              <div>Video Filters</div>
+              <div>Filtros de Vídeo</div>
             </legend>
             <!-- prettier-ignore -->
             <ul class="gbs-help">
-              <li><strong>Y Filter</strong>: Luminance filter shaping</li>
-              <li><strong>C Filter</strong>: Chrominance filter (AV only)</li>
-              <li><strong>Override</strong>: Manual Y filter control (S-Video only)</li>
-              <li><strong>Comb Filter</strong>: Comb filter bandwidth</li>
-              <li><strong>Luma/Chr Mode</strong>: Comb filter algorithm</li>
-              <li><strong>Chr Taps</strong>: Comb filter line averaging</li>
+              <li><strong>Y Filter</strong>: Filtro de luminância</li>
+              <li><strong>C Filter</strong>: Filtro de crominância (apenas AV)</li>
+              <li><strong>Forçar</strong>: Controle manual do filtro Y (apenas S-Video)</li>
+              <li><strong>Filtro Pente</strong>: Largura de banda do filtro pente</li>
+              <li><strong>Modo Luma/Chr</strong>: Algoritmo do filtro pente</li>
+              <li><strong>Chr Taps</strong>: Média de linhas do filtro pente</li>
             </ul>
             <!-- Y Filter -->
             <div class="gbs-flex gbs-margin__bottom--8">
@@ -479,7 +479,7 @@
               <button id="gbs-pro-filter-yfilter-dec" class="gbs-button gbs-button__control" style="width: 40px; height: 42px;">
                 <div class="gbs-icon">remove</div>
               </button>
-              <span id="gbs-pro-filter-yfilter-value" style="width: 80px; text-align: center; padding: 8px;">AutoNarrow</span>
+              <span id="gbs-pro-filter-yfilter-value" style="width: 80px; text-align: center; padding: 8px;">AutoEstreito</span>
               <button id="gbs-pro-filter-yfilter-inc" class="gbs-button gbs-button__control" style="width: 40px; height: 42px;">
                 <div class="gbs-icon">add</div>
               </button>
@@ -498,39 +498,39 @@
             <!-- Override (SV only) -->
             <table id="gbs-pro-filter-override-row" class="gbs-preferences" style="display: none; width: 100%;">
               <tr id="gbs-pro-filter-override-tr">
-                <td style="width: 100%; padding: 6px;">Override</td>
+                <td style="width: 100%; padding: 6px;">Forçar</td>
                 <td id="gbs-pro-filter-override" class="gbs-icon">toggle_off</td>
               </tr>
             </table>
             <!-- Comb Filter -->
             <div class="gbs-flex gbs-margin__bottom--8">
-              <span style="flex: 1; padding: 8px;">Comb Filter</span>
+              <span style="flex: 1; padding: 8px;">Filtro Pente</span>
               <button id="gbs-pro-filter-comb-dec" class="gbs-button gbs-button__control" style="width: 40px; height: 42px;">
                 <div class="gbs-icon">remove</div>
               </button>
-              <span id="gbs-pro-filter-comb-value" style="width: 80px; text-align: center; padding: 8px;">Medium</span>
+              <span id="gbs-pro-filter-comb-value" style="width: 80px; text-align: center; padding: 8px;">Médio</span>
               <button id="gbs-pro-filter-comb-inc" class="gbs-button gbs-button__control" style="width: 40px; height: 42px;">
                 <div class="gbs-icon">add</div>
               </button>
             </div>
             <!-- Comb Luma Mode -->
             <div id="gbs-pro-filter-luma-row" class="gbs-flex gbs-margin__bottom--8">
-              <span style="flex: 1; padding: 8px;">Luma Mode</span>
+              <span style="flex: 1; padding: 8px;">Modo Luma</span>
               <button id="gbs-pro-filter-luma-dec" class="gbs-button gbs-button__control" style="width: 40px; height: 42px;">
                 <div class="gbs-icon">remove</div>
               </button>
-              <span id="gbs-pro-filter-luma-value" style="width: 80px; text-align: center; padding: 8px;">Adaptive</span>
+              <span id="gbs-pro-filter-luma-value" style="width: 80px; text-align: center; padding: 8px;">Adaptativo</span>
               <button id="gbs-pro-filter-luma-inc" class="gbs-button gbs-button__control" style="width: 40px; height: 42px;">
                 <div class="gbs-icon">add</div>
               </button>
             </div>
             <!-- Comb Chroma Mode -->
             <div id="gbs-pro-filter-chroma-row" class="gbs-flex gbs-margin__bottom--8">
-              <span style="flex: 1; padding: 8px;">Chr Mode</span>
+              <span style="flex: 1; padding: 8px;">Modo Chr</span>
               <button id="gbs-pro-filter-chroma-dec" class="gbs-button gbs-button__control" style="width: 40px; height: 42px;">
                 <div class="gbs-icon">remove</div>
               </button>
-              <span id="gbs-pro-filter-chroma-value" style="width: 80px; text-align: center; padding: 8px;">Adaptive</span>
+              <span id="gbs-pro-filter-chroma-value" style="width: 80px; text-align: center; padding: 8px;">Adaptativo</span>
               <button id="gbs-pro-filter-chroma-inc" class="gbs-button gbs-button__control" style="width: 40px; height: 42px;">
                 <div class="gbs-icon">add</div>
               </button>
@@ -550,19 +550,19 @@
             <div class="gbs-flex">
               <button id="gbs-pro-filter-default" class="gbs-button gbs-button__control gbs-button__secondary" style="flex: 1;">
                 <div class="gbs-icon">restore</div>
-                <div>Reset to Defaults</div>
+                <div>Restaurar Padrões</div>
               </button>
             </div>
           </fieldset>
           <fieldset class="gbs-fieldset presets">
             <legend class="gbs-fieldset__legend gbs-fieldset__legend--help">
               <div class="gbs-icon">input</div>
-              <div>Presets</div>
+              <div>Perfis</div>
             </legend>
             <!-- prettier-ignore -->
             <ul class="gbs-help">
-              <li>If you want to save your customizations, first select a slot for your new preset, then save to or load from that slot.</li>
-              <li>Selecting a slot also makes it the new startup preset.</li>
+              <li>Para salvar suas customizações, escolha primeiro um slot para o novo perfil e depois salve ou carregue desse slot.</li>
+              <li>Selecionar um slot também o define como perfil de inicialização.</li>
             </ul>
             <div class="gbs-presets" gbs-slot-html></div>
             <div class="gbs-flex">
@@ -574,7 +574,7 @@
                 onclick="loadPreset()"
               >
                 <div class="gbs-icon">play_arrow</div>
-                <div>load preset</div>
+                <div>carregar perfil</div>
               </button>
               <button
                 class="gbs-button gbs-button__control-action gbs-button__secondary"
@@ -582,7 +582,7 @@
                 active
               >
                 <div class="gbs-icon">add_circle_outline</div>
-                <div>save preset</div>
+                <div>salvar perfil</div>
               </button>
               <button
                 class="gbs-button gbs-button__control-action gbs-button__secondary"
@@ -590,7 +590,7 @@
                 active
               >
                 <div class="gbs-icon">highlight_remove</div>
-                <div>remove preset</div>
+                <div>apagar perfil</div>
               </button>
             </div>
           </fieldset>
@@ -600,12 +600,12 @@
           <fieldset class="gbs-fieldset">
             <legend class="gbs-fieldset__legend gbs-fieldset__legend--help">
               <div class="gbs-icon">wb_sunny</div>
-              <div>ADC Gain (brightness)</div>
+              <div>Ganho ADC (brilho)</div>
             </legend>
             <!-- prettier-ignore -->
             <ul class="gbs-help">
-              <li>Gain +/- adjusts the gain for the currently loaded preset.</li>
-              <li>Auto Gain increases gain so bright areas are displayed as white, then decreases it when clipping is detected. Calibrate for a few seconds on a white screen.</li>
+              <li>Os botões +/- ajustam o ganho do perfil atual.</li>
+              <li>O Ganho Automático aumenta o ganho para que áreas claras fiquem brancas e diminui quando detecta clipping. Calibre por alguns segundos numa tela branca.</li>
             </ul>
             <div class="gbs-flex gbs-margin__bottom--16">
               <button
@@ -634,14 +634,14 @@
                 class="gbs-button gbs-button__control gbs-button__secondary"
               >
                 <div class="gbs-icon">brightness_auto</div>
-                <div>Auto Gain</div>
+                <div>Ganho Automático</div>
               </button>
             </div>
           </fieldset>
           <fieldset class="gbs-fieldset gbs-controls">
             <legend class="gbs-fieldset__legend">
               <div class="gbs-icon">control_camera</div>
-              <div>Picture Control</div>
+              <div>Controle de Imagem</div>
             </legend>
             <div class="gbs-flex">
               <button
@@ -705,7 +705,7 @@
           <fieldset class="gbs-fieldset gbs-controls__desktop">
             <legend class="gbs-fieldset__legend">
               <div class="gbs-icon">control_camera</div>
-              <div>Picture Control</div>
+              <div>Controle de Imagem</div>
             </legend>
             <div class="gbs-flex">
               <button
@@ -848,7 +848,7 @@
           <!-- <fieldset class="gbs-fieldset controls-desktop">
             <legend class="gbs-fieldset__legend">
               <div class="gbs-icon">control_camera</div>
-              <div>Picture Control</div>
+              <div>Controle de Imagem</div>
             </legend>
             <div class="">
               <button active class="gbs-button direction">
@@ -1010,7 +1010,7 @@
           <fieldset class="gbs-fieldset filters">
             <legend class="gbs-fieldset__legend gbs-fieldset__legend--help">
               <div class="gbs-icon">blur_on</div>
-              <div>Filters</div>
+              <div>Filtros</div>
             </legend>
             <div class="gbs-margin__bottom--16">
               <div class="gbs-flex gbs-margin__bottom--16">
@@ -1046,8 +1046,8 @@
               </div>
               <ul class="gbs-help">
                 <!-- prettier-ignore -->
-                <li>Scanlines only work with 240p sources, or 480i with Bob deinterlacing.</li>
-                <li>Line Filter eliminates blocky-pixel artifacts when upscaling beyond 480p, and is recommended.</li>
+                <li>Scanlines funcionam apenas com fontes 240p, ou 480i com desentrelaçamento Bob.</li>
+                <li>O Line Filter elimina artefatos de pixel ao escalar acima de 480p. Recomendado.</li>
               </ul>
               <div class="gbs-flex">
                 <button
@@ -1083,8 +1083,8 @@
               </div>
               <ul class="gbs-help">
                 <!-- prettier-ignore -->
-                <li>Peaking increases contrast around horizontal brightness steps, and is recommended.</li>
-                <li>Step Response increases the sharpness of horizontal color steps, and is recommended.</li>
+                <li>O Peaking aumenta o contraste em transições horizontais de brilho. Recomendado.</li>
+                <li>O Step Response aumenta a nitidez das transições horizontais de cor. Recomendado.</li>
               </ul>
           </fieldset>
           <fieldset class="gbs-fieldset filters">
@@ -1100,7 +1100,7 @@
                 class="gbs-button gbs-button__control"
               >
                 <div class="gbs-icon">add_circle_outline</div>
-                <div>Brightness</div>
+                <div>Brilho</div>
               </button>
               <button
                 gbs-message="T"
@@ -1109,7 +1109,7 @@
                 class="gbs-button gbs-button__control"
               >
                 <div class="gbs-icon">remove_circle_outline</div>
-                <div>Brightness</div>
+                <div>Brilho</div>
               </button>
             </div>
             <div class="gbs-flex">
@@ -1120,7 +1120,7 @@
                 class="gbs-button gbs-button__control"
               >
                 <div class="gbs-icon">add_circle_outline</div>
-                <div>Contrast</div>
+                <div>Contraste</div>
               </button>
               <button
                 gbs-message="M"
@@ -1129,7 +1129,7 @@
                 class="gbs-button gbs-button__control"
               >
                 <div class="gbs-icon">remove_circle_outline</div>
-                <div>Contrast</div>
+                <div>Contraste</div>
               </button>
             </div>
             <div class="gbs-flex">
@@ -1140,7 +1140,7 @@
                 class="gbs-button gbs-button__control"
               >
                 <div class="gbs-icon">add_circle_outline</div>
-                <div>Pb/U gain</div>
+                <div>Ganho Pb/U</div>
               </button>
               <button
                 gbs-message="H"
@@ -1149,7 +1149,7 @@
                 class="gbs-button gbs-button__control"
               >
                 <div class="gbs-icon">remove_circle_outline</div>
-                <div>Pb/U gain</div>
+                <div>Ganho Pb/U</div>
               </button>
             </div>
             <div class="gbs-flex">
@@ -1160,7 +1160,7 @@
                 class="gbs-button gbs-button__control"
                 >
                 <div class="gbs-icon">add_circle_outline</div>
-                <div>Pr/V gain</div>
+                <div>Ganho Pr/V</div>
               </button>
               <button
                 gbs-message="S"
@@ -1169,7 +1169,7 @@
                 class="gbs-button gbs-button__control"
                 >
                 <div class="gbs-icon">remove_circle_outline</div>
-                <div>Pr/V gain</div>
+                <div>Ganho Pr/V</div>
               </button>
             </div>
             <div class="gbs-flex">
@@ -1189,13 +1189,13 @@
                 class="gbs-button gbs-button__control"
               >
                 <div class="gbs-icon">settings_backup_restore</div>
-                <div>Default</div>
+                <div>Padrão</div>
               </button>
             </div>
             <ul class="gbs-help">
               <!-- prettier-ignore -->
-              <li>Pb/U gain - change blue-luma gain.</li>
-              <li>Pr/V gain - change red-luma gain.</li>
+              <li>Ganho Pb/U - ajusta o ganho azul-luma.</li>
+              <li>Ganho Pr/V - ajusta o ganho vermelho-luma.</li>
             </ul>
           </fieldset>
         </section>
@@ -1204,7 +1204,7 @@
           <fieldset class="gbs-fieldset">
             <legend class="gbs-fieldset__legend gbs-fieldset__legend--help">
               <div class="gbs-icon">tune</div>
-              <div>Settings</div>
+              <div>Ajustes</div>
             </legend>
             <table class="gbs-preferences">
               <tr>
@@ -1212,7 +1212,7 @@
                   Matched Presets
                   <ul class="gbs-help">
                     <!-- prettier-ignore -->
-                    <li>If enabled, default to 1280x960 for NTSC 60 and 1280x1024 for PAL 50 (does not apply for 720p / 1080p presets).</li>
+                    <li>Se ativado, usa 1280x960 para NTSC 60 e 1280x1024 para PAL 50 (não se aplica aos perfis 720p / 1080p).</li>
                   </ul>
                 </td>
                 <td
@@ -1230,8 +1230,8 @@
                   Full Height
                   <!-- prettier-ignore -->
                   <ul class="gbs-help">
-                    <li>Some presets default to not using the entire vertical output resolution, leaving some lines black.</li>
-                    <li>With Full Height enabled, these presets will instead scale to fill more of the screen height.</li>
+                    <li>Alguns perfis não usam toda a resolução vertical de saída, deixando linhas pretas.</li>
+                    <li>Com Altura Total ativada, estes perfis escalam para preencher mais da altura da tela.</li>
                     <li>(This currently only affects 1920 x 1080)</li>
                   </ul>
                 </td>
@@ -1250,10 +1250,10 @@
                 <td>
                   Low Res: Use Upscaling
                   <ul class="gbs-help">
-                    <li>Low Resolution VGA input: Pass-through or Upscale</li>
-                    <li>Low resolution sources can be either passed on directly or get upscaled.</li>
-                    <li>Upscaling may have some border / scaling issues, but is more compatible with displays.</li>
-                    <li>Also, refresh rates other than 60Hz are not well supported yet.</li>
+                    <li>Entrada VGA de baixa resolução: Passagem ou Upscale</li>
+                    <li>Fontes de baixa resolução podem passar direto ou ser escaladas.</li>
+                    <li>O upscale pode ter problemas de borda/escala, mas é mais compatível com TVs.</li>
+                    <li>Além disso, taxas de atualização diferentes de 60Hz ainda não são bem suportadas.</li>
                     <li>"Low resolution" is currently set at below or equal to 640x480 (525 active lines).</li>
                   </ul>
                 </td>
@@ -1271,8 +1271,8 @@
                 <td>
                   Output RGBHV/Component
                   <ul class="gbs-help">
-                    <li>The default output mode is RGBHV, suitable for use with VGA cables or HDMI converters.</li>
-                    <li>An experimental YPbPr mode can also be selected. Compatibility is still spotty.</li>
+                    <li>O modo de saída padrão é RGBHV, adequado para cabos VGA ou conversores HDMI.</li>
+                    <li>Um modo YPbPr experimental também pode ser selecionado. A compatibilidade ainda é irregular.</li>
                   </ul>
                 </td>
                 <td
@@ -1293,7 +1293,7 @@
                   <ul class="gbs-help">
                     <li>If your TV does not support 50Hz sources (displaying unknown format, no matter the preset), try this option.
                     </li>
-                    <li>The frame rate will not be as smooth. Reboot required.</li>
+                    <li>A taxa de quadros não ficará tão suave. Reinício necessário.</li>
                   </ul>
                 </td>
                 <td
@@ -1308,10 +1308,10 @@
               </tr>
               <tr>
                 <td>
-                  Disable External Clock Generator
+                  Desativar Gerador de Clock Externo
                   <!-- prettier-ignore -->
                   <ul class="gbs-help">
-                    <li>By default the external clock generator is enabled when installed.</li>
+                    <li>Por padrão, o gerador de clock externo é ativado quando instalado.</li>
                     <li>You can disable it if you have issues with other options, e.g  Force PAL 50Hz to 60Hz.
                     Reboot required.</li>
                   </ul>
@@ -1331,8 +1331,8 @@
                   ADC calibration
                   <!-- prettier-ignore -->
                   <ul class="gbs-help">
-                    <li>Gbscontrol calibrates the ADC offsets on startup.</li>
-                    <li>In case of color shift problems, try disabling this function.</li>
+                    <li>O Gbscontrol calibra os offsets do ADC na inicialização.</li>
+                    <li>Se aparecer problema de mudança de cor, tente desativar esta função.</li>
                   </ul>
                 </td>
                 <td
@@ -1350,8 +1350,8 @@
                   Sync Stripper
                   <!-- prettier-ignore -->
                   <ul class="gbs-help">
-                    <li>Enable LM1881 sync stripper for RGB sources.</li>
-                    <li>Useful for sources with dirty or non-standard sync signals.</li>
+                    <li>Ativa o LM1881 sync stripper para fontes RGB.</li>
+                    <li>Útil para fontes com sync sujo ou fora do padrão.</li>
                   </ul>
                 </td>
                 <td
@@ -1367,9 +1367,9 @@
                   HDMI Limited Range
                   <!-- prettier-ignore -->
                   <ul class="gbs-help">
-                    <li>Workaround for MS9288 and similar VGA-to-HDMI converters that mark certain resolutions as Limited Range.</li>
-                    <li>OFF: No compensation. HD: Apply to 720p/1080p. SD: Apply to 480p/576p/960p/1024p. ALL: Apply to all resolutions.</li>
-                    <li>If colors appear washed out or clipped at certain resolutions, try cycling through these options.</li>
+                    <li>Solução para conversores VGA-HDMI MS9288 e similares que marcam certas resoluções como Limited Range.</li>
+                    <li>OFF: Sem compensação. HD: Aplica a 720p/1080p. SD: Aplica a 480p/576p/960p/1024p. ALL: Aplica a todas as resoluções.</li>
+                    <li>Se as cores ficarem lavadas ou cortadas em certas resoluções, tente alternar entre estas opções.</li>
                   </ul>
                 </td>
                 <td
@@ -1388,8 +1388,8 @@
                   Active FrameTime Lock
                   <!-- prettier-ignore -->
                   <ul class="gbs-help">
-                    <li>This option keeps the input and output timings aligned, fixing the horizontal tear line that can appear sometimes.</li>
-                    <li>Two methods are available. Try switching methods if your display goes blank or shifts vertically.</li>
+                    <li>Esta opção mantém os timings de entrada e saída alinhados, corrigindo a linha de rasgo horizontal que pode aparecer.</li>
+                    <li>Dois métodos disponíveis. Tente trocar se sua TV apagar ou deslocar verticalmente.</li>
                   </ul>
                 </td>
               </tr>
@@ -1406,7 +1406,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="gbs-padding__left-16">Switch Lock Method</td>
+                <td class="gbs-padding__left-16">Trocar Método de Lock</td>
                 <td
                   class="gbs-icon"
                   gbs-message="i"
@@ -1422,10 +1422,10 @@
                   Deinterlace Method
                   <!-- prettier-ignore -->
                   <ul class="gbs-help">
-                    <li>Gbscontrol detects interlaced content and automatically toggles deinterlacing.</li>
-                    <li>Bob Method: essentially no deinterlacing, no added lag but flickers, can be combined with scanlines</li>
-                    <li>Motion Adaptive: removes flicker and shows some artefacts in moving details</li>
-                    <li>If possible, configure the source for progressive output. Otherwise, using Motion Adaptive is recommended.</li>
+                    <li>O Gbscontrol detecta conteúdo entrelaçado e ativa o desentrelaçamento automaticamente.</li>
+                    <li>Método Bob: praticamente sem desentrelaçamento, sem lag mas com cintilação, pode ser combinado com scanlines</li>
+                    <li>Motion Adaptive: remove cintilação e mostra alguns artefatos em detalhes em movimento</li>
+                    <li>Se possível, configure a fonte para saída progressiva. Caso contrário, recomenda-se Motion Adaptive.</li>
                   </ul>
                 </td>
               </tr>
@@ -1458,18 +1458,18 @@
                   Developer Mode
                   <!-- prettier-ignore -->
                   <ul class="gbs-help">
-                    <li>Enables the developer menu which contains various debugging tools</li>
+                    <li>Ativa o menu de desenvolvedor com diversas ferramentas de debug.</li>
                   </ul>
                 </td>
                 <td class="gbs-icon">toggle_off</td>
               </tr>
               <tr gbs-slot-custom-filters>
                 <td>
-                  Save Filtering Per Slot
+                  Salvar Filtros Por Slot
                   <!-- prettier-ignore -->
                   <ul class="gbs-help">
-                    <li>When enabled, saved slots recover their own filter preferences.</li>
-                    <li>When disabled, saved slots maintain current filter settings.</li>
+                    <li>Quando ativado, slots salvos recuperam seus próprios filtros.</li>
+                    <li>Quando desativado, slots salvos mantêm os filtros atuais.</li>
                   </ul>
                 </td>
                 <td class="gbs-icon">toggle_off</td>
@@ -1479,7 +1479,7 @@
                 IR Remote Control: Key Codes
                 <!-- prettier-ignore -->
                 <ul class="gbs-help">
-                  <li>Reading the code of the IR remote control buttons.</li>
+                  <li>Lendo o código dos botões do controle remoto IR.</li>
                 </ul>
               </td>
               <td class="gbs-icon" gbs-message="I" gbs-message-type="user" gbs-click="normal" style="cursor: pointer">
@@ -1493,12 +1493,12 @@
           <fieldset class="gbs-fieldset">
             <legend class="gbs-fieldset__legend">
               <div class="gbs-icon">input</div>
-              <div>Developer</div>
+              <div>Desenvolvedor</div>
             </legend>
             <div class="gbs-flex gbs-margin__bottom--16">
               <button class="gbs-button" gbs-output-toggle>
                 <div class="gbs-icon">code</div>
-                <div>Toggle Console</div>
+                <div>Alternar Console</div>
               </button>
             </div>
             <div class="gbs-flex gbs-margin__bottom--16">
@@ -1547,7 +1547,7 @@
                 class="gbs-button"
               >
                 <div class="gbs-icon">list</div>
-                <div>List Options</div>
+                <div>Listar Opções</div>
               </button>
               <button
                 gbs-message="i"
@@ -1556,7 +1556,7 @@
                 class="gbs-button"
               >
                 <div class="gbs-icon">info</div>
-                <div>Print Info</div>
+                <div>Imprimir Info</div>
               </button>
               <button
                 gbs-message=","
@@ -1565,7 +1565,7 @@
                 class="gbs-button"
               >
                 <div class="gbs-icon">alarm</div>
-                <div>Get Video Timings</div>
+                <div>Ler Timings de Vídeo</div>
               </button>
             </div>
 
@@ -1577,7 +1577,7 @@
                 class="gbs-button gbs-margin__bottom--16"
               >
                 <div class="gbs-icon">add_a_photo</div>
-                <div>Freeze Capture</div>
+                <div>Congelar Captura</div>
               </button>
             </div>
 
@@ -1589,7 +1589,7 @@
                 class="gbs-button"
               >
                 <div class="gbs-icon">wb_sunny</div>
-                <div>ADC Filter</div>
+                <div>Filtro ADC</div>
               </button>
               <button
                 gbs-message="l"
@@ -1598,7 +1598,7 @@
                 class="gbs-button"
               >
                 <div class="gbs-icon">memory</div>
-                <div>Cycle SDRAM</div>
+                <div>Ciclar SDRAM</div>
               </button>
             </div>
             <div class="gbs-flex">
@@ -1609,7 +1609,7 @@
                 class="gbs-button"
               >
                 <div class="gbs-icon">bug_report</div>
-                <div>Debug View</div>
+                <div>Visão de Debug</div>
               </button>
             </div>
             <div class="gbs-flex">
@@ -1658,7 +1658,7 @@
                 class="gbs-button"
               >
                 <div class="gbs-icon">invert_colors</div>
-                <div>Invert Sync</div>
+                <div>Inverter Sync</div>
               </button>
             </div>
             <div class="gbs-flex">
@@ -1730,7 +1730,7 @@
                 class="gbs-button gbs-button__secondary"
               >
                 <div class="gbs-icon">model_training</div>
-                <div>Reset Chip</div>
+                <div>Resetar Chip</div>
               </button>
             </div>
           </fieldset>
@@ -1740,7 +1740,7 @@
           <fieldset class="gbs-fieldset">
             <legend class="gbs-fieldset__legend">
               <div class="gbs-icon">bolt</div>
-              <div>System</div>
+              <div>Sistema</div>
             </legend>
             <div class="gbs-flex">
               <button
@@ -1750,7 +1750,7 @@
                 class="gbs-button gbs-button__control"
               >
                 <div class="gbs-icon">system_update_alt</div>
-                <div>Enable OTA</div>
+                <div>Ativar OTA</div>
               </button>
               <button
                 gbs-message="a"
@@ -1759,7 +1759,7 @@
                 class="gbs-button gbs-button__control"
               >
                 <div class="gbs-icon">settings_backup_restore</div>
-                <div>Restart</div>
+                <div>Reiniciar</div>
               </button>
               <button
                 gbs-message="1"
@@ -1768,34 +1768,34 @@
                 class="gbs-button gbs-button__control gbs-button__secondary"
               >
                 <div class="gbs-icon">settings_backup_restore offline_bolt</div>
-                <div>Reset Defaults</div>
+                <div>Restaurar Padrões</div>
               </button>
             </div>
           </fieldset>
           <fieldset class="gbs-fieldset">
             <legend class="gbs-fieldset__legend gbs-fieldset__legend--help"">
               <div class="gbs-icon">sd_card</div>
-              <div>Backup [intended for same device]</div>
+              <div>Cópia [destinada ao mesmo aparelho]</div>
             </legend>
             <!-- prettier-ignore -->
             <ul class="gbs-help">
-              <li>Backup / Restore of configuration files</li>
-              <li>Backup is valid for current device only</li>
-              <!-- <li>Backup is valid between devices with the same hardware revision</li> -->
+              <li>Cópia / Restauração de arquivos de configuração</li>
+              <li>A cópia é válida apenas para o aparelho atual</li>
+              <!-- <li>A cópia é válida entre aparelhos com a mesma revisão de hardware</li> -->
             </ul>
             <div class="gbs-flex">
               <button
                 class="gbs-button gbs-button__control gbs-button__secondary gbs-backup-button"
               >
                 <div class="gbs-icon">cloud_download</div>
-                <div gbs-progress gbs-progress-backup>Backup</div>
+                <div gbs-progress gbs-progress-backup>Cópia</div>
               </button>
               <button
                 class="gbs-button gbs-button__control gbs-button__secondary"
               >
                 <div class="gbs-icon">cloud_upload</div>
                 <input type="file" class="gbs-backup-input" accept=".bin"/>
-                <div gbs-progress gbs-progress-restore>Restore</div>
+                <div gbs-progress gbs-progress-restore>Restaurar</div>
               </button>
             </div>
           </fieldset>
@@ -1808,24 +1808,24 @@
             <div class="gbs-flex gbs-margin__bottom--16">
               <button class="gbs-button gbs-button__control" gbs-wifi-ap>
                 <div class="gbs-icon">location_on</div>
-                <div>Access Point</div>
+                <div>Ponto de Acesso</div>
               </button>
               <button class="gbs-button gbs-button__control" gbs-wifi-station>
                 <div class="gbs-icon">radio</div>
-                <div gbs-wifi-station-ssid>Station</div>
+                <div gbs-wifi-station-ssid>Estação</div>
               </button>
             </div>
             <fieldset class="gbs-fieldset" gbs-wifi-list hidden>
               <legend class="gbs-fieldset__legend">
                 <div class="gbs-icon">router</div>
-                <div>Select SSID</div>
+                <div>Selecionar SSID</div>
               </legend>
               <table class="gbs-wifi__list"></table>
             </fieldset>
             <fieldset class="gbs-fieldset gsb-wifi__connect" hidden>
               <legend class="gbs-fieldset__legend">
                 <div class="gbs-icon">login</div>
-                <div>Connect to SSID</div>
+                <div>Conectar a SSID</div>
               </legend>
               <div class="gbs-flex">
                 <input
@@ -1850,7 +1850,7 @@
                   class="gbs-button gbs-button__control gbs-button__secondary"
                 >
                   <div class="gbs-icon">network_check</div>
-                  <div>Connect</div>
+                  <div>Conectar</div>
                 </button>
               </div>
             </fieldset>
@@ -1911,13 +1911,13 @@
           <fieldset class="gbs-fieldset gbs-fieldset-output">
             <legend class="gbs-fieldset__legend">
               <div class="gbs-icon">code</div>
-              <div>Output</div>
+              <div>Saída</div>
             </legend>
             <div class="gbs-flex gbs-margin__bottom--16" gbs-output-clear>
               <button class="gbs-button gbs-icon">delete_outline</button>
             </div>
             <div class="gbs-flex gbs-margin__bottom--16 gbs-custom-i2c">
-              <label class="gbs-custom-i2c__label">ADV Controller - Custom I2C</label>
+              <label class="gbs-custom-i2c__label">ADV Controller - I2C Customizado</label>
               <input
                 type="text"
                 id="customI2CInput"

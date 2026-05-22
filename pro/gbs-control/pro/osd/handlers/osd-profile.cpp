@@ -54,7 +54,7 @@ static bool getSlotName(uint8_t slotIndex, char* nameBuffer, uint8_t maxLen)
     return true;
 }
 
-// Format slot name into buffer: custom name or "Preset X"
+// Format slot name into buffer: custom name or "Perfil X"
 static void formatSlotName(uint8_t slotIndex, char* outBuf, uint8_t bufLen)
 {
     char name[19];

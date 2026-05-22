@@ -175,7 +175,7 @@ bool IR_handleColorSettings()
 
     // OLED_ColorSettings_ADCGain
     else if (oled_menuItem == OLED_ColorSettings_ADCGain) {
-        showMenuToggle("Menu->Color", "ADC gain", uopt->enableAutoGain);
+        showMenuToggle("Menu->Color", "Ganho ADC", uopt->enableAutoGain);
         OSD_handleCommand(OSD_CMD_COLOR_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -262,7 +262,7 @@ bool IR_handleColorSettings()
 
     // OLED_ColorSettings_LineFilter
     else if (oled_menuItem == OLED_ColorSettings_LineFilter) {
-        showMenuToggle("Menu->Color", "Line filter", uopt->wantVdsLineFilter);
+        showMenuToggle("Menu->Color", "Filtro de Linha", uopt->wantVdsLineFilter);
         OSD_handleCommand(OSD_CMD_COLOR_PAGE2_VALUES);
 
         if (irDecode()) {
@@ -292,7 +292,7 @@ bool IR_handleColorSettings()
 
     // OLED_ColorSettings_Sharpness
     else if (oled_menuItem == OLED_ColorSettings_Sharpness) {
-        showMenuToggle("Menu->Color", "Sharpness", GBS::VDS_PK_LB_GAIN::read() != 0x16);
+        showMenuToggle("Menu->Color", "Nitidez", GBS::VDS_PK_LB_GAIN::read() != 0x16);
         OSD_handleCommand(OSD_CMD_COLOR_PAGE3_VALUES);
 
         if (irDecode()) {
@@ -323,7 +323,7 @@ bool IR_handleColorSettings()
     // OLED_ColorSettings_Peaking
     else if (oled_menuItem == OLED_ColorSettings_Peaking) {
         if (isPeakingLocked()) {
-            showMenuValue("Menu->Color", "Peaking", "LOCKED");
+            showMenuValue("Menu->Color", "Peaking", "TRAVADO");
         } else {
             showMenuToggle("Menu->Color", "Peaking", uopt->wantPeaking);
         }
@@ -359,7 +359,7 @@ bool IR_handleColorSettings()
 
     // OLED_ColorSettings_StepResponse
     else if (oled_menuItem == OLED_ColorSettings_StepResponse) {
-        showMenuToggle("Menu->Color", "Step response", uopt->wantStepResponse);
+        showMenuToggle("Menu->Color", "Step Response", uopt->wantStepResponse);
         OSD_handleCommand(OSD_CMD_COLOR_PAGE3_VALUES);
 
         if (irDecode()) {
@@ -478,7 +478,7 @@ bool IR_handleColorSettings()
 
     // OLED_ColorSettings_DefaultColor
     else if (oled_menuItem == OLED_ColorSettings_DefaultColor) {
-        showMenu("Menu->Color", "Default Color");
+        showMenu("Menu->Color", "Cor Padrão");
         OSD_handleCommand(OSD_CMD_COLOR_PAGE4_VALUES);
 
         if (irDecode()) {

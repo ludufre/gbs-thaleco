@@ -22,7 +22,7 @@ extern float getOutputFrameRate();
 // Render mute status on TV OSD (non-blocking, called each frame)
 void OSD_renderMuteDisplay(bool muted)
 {
-    OSD_writeStringAtRow(1, 1, "MUTE", OSD_TEXT_NORMAL);
+    OSD_writeStringAtRow(1, 1, "MUDO", OSD_TEXT_NORMAL);
     if (muted) {
         OSD_writeStringAtRow(1, 6, "ON ", OSD_TEXT_NORMAL);  // Extra space to clear "OFF"
     } else {
@@ -37,7 +37,7 @@ void OSD_renderMuteDisplay(bool muted)
 // Display volume value on TV OSD (called during volume adjustment)
 void OSD_updateVolumeDisplay(uint8_t volumeValue)
 {
-    OSD_writeStringAtRow(1, 1, "Line input volume", OSD_TEXT_NORMAL);
+    OSD_writeStringAtRow(1, 1, "Volume de Entrada", OSD_TEXT_NORMAL);
     // Display 2-digit volume value at positions 20-21 (0-50 range)
     OSD_writeCharAtRow(1, 20, '0' + (volumeValue / 10), OSD_TEXT_NORMAL);  // tens
     OSD_writeCharAtRow(1, 21, '0' + (volumeValue % 10), OSD_TEXT_NORMAL);  // units
@@ -104,7 +104,7 @@ void OSD_renderInfoDisplay()
     const char* inputText = nullptr;
 
     if (rto->sourceDisconnected || !rto->boardHasPower) {
-        inputText = "No Signal";
+        inputText = "Sem Sinal";
     } else {
         // Determine input signal type
         uint8_t activeInput = uopt->activeInputType;
@@ -114,7 +114,7 @@ void OSD_renderInfoDisplay()
             boolean vsyncActive = GBS::STATUS_SYNC_PROC_VSACT::read();
             boolean hsyncActive = GBS::STATUS_SYNC_PROC_HSACT::read();
             if (activeInput == InputTypeVGA && !(vsyncActive && hsyncActive)) {
-                inputText = "No Signal";
+                inputText = "Sem Sinal";
             } else {
                 signalType = (vsyncActive && hsyncActive) ? "RGBHV" : "RGB";
             }
@@ -125,7 +125,7 @@ void OSD_renderInfoDisplay()
         } else if (activeInput == InputTypeAV) {
             signalType = "AV";
         } else {
-            inputText = "No Signal";
+            inputText = "Sem Sinal";
         }
 
         if (!inputText && signalType) {
@@ -138,7 +138,7 @@ void OSD_renderInfoDisplay()
     }
 
     // Write with padding to clear previous text
-    snprintf(buf1, sizeof(buf1), "%-19s", inputText ? inputText : "No Signal");
+    snprintf(buf1, sizeof(buf1), "%-19s", inputText ? inputText : "Sem Sinal");
     OSD_writeStringAtRow(1, 7, buf1, OSD_TEXT_NORMAL);
 
     // === ROW 2: OUTPUT ===
