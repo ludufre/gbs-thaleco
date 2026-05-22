@@ -1267,6 +1267,36 @@
             </div>
           </fieldset>
           <fieldset class="gbs-fieldset">
+            <legend class="gbs-fieldset__legend gbs-fieldset__legend--help">
+              <div class="gbs-icon">stars</div>
+              <div>Perfis do Thaleco</div>
+            </legend>
+            <div class="gbs-member-badge">
+              <div>Exclusivo Membro Entusiasta</div>
+            </div>            
+            <!-- prettier-ignore -->
+            <ul class="gbs-help">
+              <li>Importa os 5 perfis oficiais do canal: Super Nintendo, Mega Drive, PS1, PS2 e Nintendo 64 (um por console)</li>
+              <li>Sobrescreve os slots A-E. Os demais slots ficam intactos</li>
+              <li>Senha disponível no canal do YouTube para Membro Entusiasta em Assinatura > Seus benefícios</li>
+            </ul>
+            <div class="gbs-flex">
+              <button
+                class="gbs-button gbs-button__control gbs-button__primary"
+                onclick="window.open('https://www.youtube.com/channel/UCYRtc_byKs1X1U7TdOVs0lg/membership', '_blank');"
+              >
+                <div class="gbs-icon">smart_display</div>
+                <div>Benefícios Membros</div>
+              </button>
+              <button
+                class="gbs-button gbs-button__control gbs-button__secondary gbs-thaleco-button"
+              >
+                <div class="gbs-icon">download</div>
+                <div>Importar</div>
+              </button>
+            </div>
+          </fieldset>
+          <fieldset class="gbs-fieldset">
             <legend class="gbs-fieldset__legend">
               <div class="gbs-icon">info</div>
               <div>Sobre</div>

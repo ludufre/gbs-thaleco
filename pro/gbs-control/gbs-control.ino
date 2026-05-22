@@ -16,6 +16,8 @@
 #include "ofw_RGBS.h"
 #include "options.h"
 #include "slot.h"
+#include "thaleco_presets.h"
+#define THALECO_IMPORT_PASSWORD "" // Set a password to protect the built-in presets import functionality, or leave empty for no password
 
 #include <Wire.h>
 #include "tv5725.h"
@@ -95,6 +97,28 @@ volatile int oled_sub_pointer = 0;
 // See 3rdparty/WebSockets for unmodified source and license
 #include "src/WebSockets.h"
 #include "src/WebSocketsServer.h"
+
+static uint32_t thaleco_import_lockout_until_ms = 0;
+static uint8_t thaleco_import_fail_count = 0;
+static uint32_t thalecoImportLockoutRemaining() {
+    if (thaleco_import_lockout_until_ms == 0) return 0;
+    // Subtração com cast pra int32 trata rollover do millis() (~50 dias).
+    if ((int32_t)(thaleco_import_lockout_until_ms - millis()) <= 0) {
+        thaleco_import_lockout_until_ms = 0;
+        return 0;
+    }
+    return thaleco_import_lockout_until_ms - millis();
+}
+static void thalecoImportRegisterFailure() {
+    if (thaleco_import_fail_count < 4) thaleco_import_fail_count++;
+    uint32_t delay = 5000UL << (thaleco_import_fail_count - 1);
+    if (delay > 30000UL) delay = 30000UL;
+    thaleco_import_lockout_until_ms = millis() + delay;
+}
+static void thalecoImportRegisterSuccess() {
+    thaleco_import_fail_count = 0;
+    thaleco_import_lockout_until_ms = 0;
+}
 
 // Optional:
 // ESP8266-ping library to aid debugging WiFi issues, install via Arduino library manager
@@ -10812,6 +10836,113 @@ void startWebserver()
     server.on("/wifi/status", HTTP_GET, [](AsyncWebServerRequest *request) {
         WiFiMode_t wifiMode = WiFi.getMode();
         request->send(200, "application/json", wifiMode == WIFI_AP ? "{\"mode\":\"ap\"}" : "{\"mode\":\"sta\",\"ssid\":\"" + WiFi.SSID() + "\"}");
+    });
+
+    server.on("/gbs/thaleco-count", HTTP_GET, [](AsyncWebServerRequest *request) {
+        uint32_t wait = thalecoImportLockoutRemaining();
+        if (wait > 0) {
+            request->send(429, "application/json", String(wait));
+            return;
+        }
+        if (!request->hasParam("password") ||
+            request->getParam("password")->value() != THALECO_IMPORT_PASSWORD) {
+            thalecoImportRegisterFailure();
+            request->send(401, "application/json", "false");
+            return;
+        }
+        thalecoImportRegisterSuccess();
+        request->send(200, "application/json", String((int)thaleco_preset_map_size));
+    });
+
+    server.on("/gbs/thaleco-preset", HTTP_GET, [](AsyncWebServerRequest *request) {
+        uint32_t wait = thalecoImportLockoutRemaining();
+        if (wait > 0) {
+            request->send(429, "application/json", String(wait));
+            return;
+        }
+        if (!request->hasParam("password") ||
+            request->getParam("password")->value() != THALECO_IMPORT_PASSWORD) {
+            thalecoImportRegisterFailure();
+            request->send(401, "application/json", "false");
+            return;
+        }
+        thalecoImportRegisterSuccess();
+        bool result = false;
+        if (request->hasParam("i") && ESP.getFreeHeap() > 8000) {
+            int i = request->getParam("i")->value().toInt();
+            if (i >= 0 && i < (int)thaleco_preset_map_size) {
+                const ThalecoPresetEntry &entry = thaleco_preset_map[i];
+                String content;
+                content.reserve(2100);
+                char buf[8];
+                for (uint16_t j = 0; j < entry.length; j++) {
+                    snprintf(buf, sizeof(buf), "%d,\r\n", (int)pgm_read_byte(&entry.data[j]));
+                    content += buf;
+                }
+                content += "};\r\n";
+                File f = LittleFS.open(entry.path, "w");
+                if (f) {
+                    f.write((const uint8_t *)content.c_str(), content.length());
+                    f.close();
+                    result = true;
+                }
+            }
+        }
+        request->send(200, "application/json", result ? "true" : "false");
+    });
+
+    server.on("/gbs/thaleco-slots", HTTP_GET, [](AsyncWebServerRequest *request) {
+        uint32_t wait = thalecoImportLockoutRemaining();
+        if (wait > 0) {
+            request->send(429, "application/json", String(wait));
+            return;
+        }
+        if (!request->hasParam("password") ||
+            request->getParam("password")->value() != THALECO_IMPORT_PASSWORD) {
+            thalecoImportRegisterFailure();
+            request->send(401, "application/json", "false");
+            return;
+        }
+        thalecoImportRegisterSuccess();
+        bool result = false;
+        if (ESP.getFreeHeap() > 10000) {
+            File slotsRead = LittleFS.open(SLOTS_FILE, "r");
+            if (!slotsRead) {
+                slotsRead = initSlotsFile();
+            }
+            if (slotsRead) {
+                SlotMetaArray slotsObject;
+                slotsRead.seek(SLOTS_HEADER_SIZE, SeekSet);
+                slotsRead.read((byte *)&slotsObject, sizeof(slotsObject));
+                slotsRead.close();
+
+                for (uint8_t i = 0; i < thaleco_slots_size; i++) {
+                    const ThalecoSlotDef &s = thaleco_slots[i];
+                    if (s.slotIdx >= SLOTS_TOTAL) continue;
+                    SlotMeta &meta = slotsObject.slot[s.slotIdx];
+                    char padded[25] = "                        ";
+                    strncpy(padded, s.name, strlen(s.name));
+                    memcpy(meta.name, padded, 25);
+                    meta.slot = s.slotIdx;
+                    meta.presetID = 0;
+                    meta.scanlines = s.scanlines;
+                    meta.scanlinesStrength = s.scanlinesStrength;
+                    meta.wantVdsLineFilter = s.wantVdsLineFilter;
+                    meta.wantStepResponse = s.wantStepResponse;
+                    meta.wantPeaking = s.wantPeaking;
+                }
+
+                File slotsWrite = LittleFS.open(SLOTS_FILE, "r+");
+                if (slotsWrite) {
+                    slotsWrite.seek(SLOTS_HEADER_SIZE, SeekSet);
+                    slotsWrite.write((byte *)&slotsObject, sizeof(slotsObject));
+                    slotsWrite.close();
+                    result = true;
+                    SerialM.println(F("thaleco slots applied"));
+                }
+            }
+        }
+        request->send(200, "application/json", result ? "true" : "false");
     });
 
     server.on("/gbs/restore-filters", HTTP_GET, [](AsyncWebServerRequest *request) {

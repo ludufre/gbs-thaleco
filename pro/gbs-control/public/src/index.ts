@@ -922,6 +922,113 @@ const setSlot = (slot: string) => {
   fetch(`/slot/set?slot=${slot}&${+new Date()}`);
 };
 
+const doRestoreThaleco = () => {
+  const ok = confirm(
+    "Importar Perfis do Thaleco?\n\nIsso sobrescreve os slots A-E com:\n  A. Super Nintendo\n  B. Mega Drive\n  C. PlayStation 1\n  D. PlayStation 2\n  E. Nintendo 64\n\nOs demais slots ficam intactos.\n\nFunção exclusiva para Membros Entusiastas do canal Thales Câmara."
+  );
+  if (!ok) {
+    return;
+  }
+  gbsPrompt(
+    "Senha de Membro Entusiasta:",
+    "",
+    "password"
+  )
+    .then((password: string) => {
+      if (!password) {
+        return;
+      }
+      const pw = encodeURIComponent(password);
+      const button = document.querySelector(
+        ".gbs-thaleco-button"
+      ) as HTMLButtonElement;
+      const label = button ? (button.querySelector("div:last-child") as HTMLElement) : null;
+      const originalLabel = label ? label.textContent : "";
+      const setLabel = (s: string) => {
+        if (label) label.textContent = s;
+      };
+      const release = () => {
+        if (button) button.removeAttribute("disabled");
+        setLabel(originalLabel);
+      };
+      if (button) button.setAttribute("disabled", "");
+
+      const checkStatus = (r: Response) => {
+        if (r.status === 429) {
+          return r.json().then((ms: number) => {
+            const err: any = new Error(
+              `Muitas tentativas. Aguarde ${Math.ceil((ms || 0) / 1000)}s antes de tentar novamente.`
+            );
+            err.retryAfterMs = ms || 0;
+            throw err;
+          });
+        }
+        if (r.status === 401) {
+          throw new Error("Senha incorreta");
+        }
+        return r.json();
+      };
+
+      const lockButtonFor = (ms: number) => {
+        if (button) button.setAttribute("disabled", "");
+        let remaining = Math.ceil(ms / 1000);
+        setLabel(`${remaining}s`);
+        const interval = window.setInterval(() => {
+          remaining--;
+          if (remaining <= 0) {
+            window.clearInterval(interval);
+            release();
+          } else {
+            setLabel(`${remaining}s`);
+          }
+        }, 1000);
+      };
+
+      fetch(`/gbs/thaleco-count?password=${pw}&${+new Date()}`)
+        .then(checkStatus)
+        .then((count: number) => {
+          const writeOne = (i: number): Promise<void> => {
+            if (i >= count) {
+              return fetch(`/gbs/thaleco-slots?password=${pw}&${+new Date()}`)
+                .then(checkStatus)
+                .then((success: boolean) => {
+                  if (!success) {
+                    throw new Error("slots write failed");
+                  }
+                });
+            }
+            setLabel(`${i + 1}/${count}`);
+            return fetch(`/gbs/thaleco-preset?i=${i}&password=${pw}&${+new Date()}`)
+              .then(checkStatus)
+              .then((success: boolean) => {
+                if (!success) {
+                  throw new Error("preset " + i + " write failed");
+                }
+                return writeOne(i + 1);
+              });
+          };
+          return writeOne(0);
+        })
+        .then(() => {
+          loadUser("a").then(() => {
+            alert(
+              "Perfis importados!\nReiniciando o GBS-Control.\nAguarde o wifi reconectar e recarregue esta página."
+            );
+            window.location.reload();
+          });
+        })
+        .catch((e) => {
+          alert("Erro ao importar perfis: " + (e && e.message ? e.message : e));
+          if (e && e.retryAfterMs > 0) {
+            lockButtonFor(e.retryAfterMs);
+          } else {
+            release();
+          }
+        });
+    })
+    .catch(() => {});
+};
+
 const updateSlotNames = () => {
   const structs = GBSControl.structs as { slots: any[] } | null;
   if (!structs) return;
@@ -2376,6 +2483,11 @@ const initGeneralListeners = () => {
     toggleCustomSlotFilters
   );
 
+  const thalecoButton = document.querySelector(".gbs-thaleco-button");
+  if (thalecoButton) {
+    thalecoButton.addEventListener("click", doRestoreThaleco);
+  }
+
   GBSControl.ui.alertOk.addEventListener("click", () => {
     GBSControl.ui.alert.setAttribute("hidden", "");
     gbsAlertPromise.resolve();
@@ -2468,9 +2580,10 @@ const gbsPromptPromise = {
   reject: null,
 };
 
-const gbsPrompt = (text: string, defaultValue = "") => {
+const gbsPrompt = (text: string, defaultValue = "", inputType = "text") => {
   GBSControl.ui.promptContent.textContent = text;
   GBSControl.ui.prompt.removeAttribute("hidden");
+  GBSControl.ui.promptInput.setAttribute("type", inputType);
   GBSControl.ui.promptInput.value = defaultValue;
 
   return new Promise<string>((resolve, reject) => {
