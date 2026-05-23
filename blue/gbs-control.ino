@@ -27,7 +27,12 @@
 #define HAVE_BUTTONS 0
 #define USE_NEW_OLED_MENU 1
 
+#define THALECO_FW_VERSION "1.1.0"
+#define THALECO_OTA_VERSION_URL "" // Add here the URL to the version.json file on your server with content like: { "version": "1.1.0", "firmware_url": "http://yourserver.com/firmware.bin" }
+#define THALECO_OTA_FIRMWARE_URL "" // Add here the URL to the firmware.bin file on your server
+
 #define THALECO_IMPORT_PASSWORD "" // Set a password to protect the built-in presets import functionality, or leave empty for no password
+
 static uint32_t thaleco_import_lockout_until_ms = 0;
 static uint8_t thaleco_import_fail_count = 0;
 static uint32_t thalecoImportLockoutRemaining() {
@@ -48,6 +53,13 @@ static void thalecoImportRegisterSuccess() {
     thaleco_import_fail_count = 0;
     thaleco_import_lockout_until_ms = 0;
 }
+
+volatile bool thaleco_ota_trigger = false;
+volatile bool thaleco_check_trigger = false;
+String thaleco_check_result = "{}";
+String thaleco_ota_result = "idle";
+String thaleco_remote_url;
+
 
 static inline void writeBytes(uint8_t slaveRegister, uint8_t *values, uint8_t numValues);
 const uint8_t *loadPresetFromSPIFFS(byte forVideoMode);
@@ -95,6 +107,8 @@ volatile int oled_sub_pointer = 0;
 #include <WiFiUdp.h>
 #include <ESP8266mDNS.h> // mDNS library for finding gbscontrol.local on the local network
 #include <ArduinoOTA.h>
+#include <ESP8266HTTPClient.h>
+#include <ESP8266httpUpdate.h>
 
 // PersWiFiManager library by Ryan Downing
 // https://github.com/r-downing/PersWiFiManager
@@ -7784,6 +7798,106 @@ void loop()
     static unsigned long lastTimeSourceCheck = 500; // 500 to start right away (after setup it will be 2790ms when we get here)
     static unsigned long lastTimeInterruptClear = millis();
 
+    if (thaleco_check_trigger) {
+        thaleco_check_trigger = false;
+        uint32_t freeHeap = ESP.getFreeHeap();
+        String json = "{\"current\":\"" + String(THALECO_FW_VERSION) + "\",\"heap\":" + String(freeHeap);
+        if (WiFi.status() != WL_CONNECTED) {
+            json += ",\"error\":\"wifi offline\"}";
+            thaleco_check_result = json;
+        } else {
+            WiFiClient client;
+            client.setTimeout(10000);
+            HTTPClient http;
+            http.setTimeout(10000);
+            http.setReuse(false);
+            if (!http.begin(client, THALECO_OTA_VERSION_URL)) {
+                json += ",\"error\":\"http begin\"}";
+                thaleco_check_result = json;
+            } else {
+                int code = http.GET();
+                if (code != 200) {
+                    json += ",\"error\":\"HTTP " + String(code) + "\"}";
+                    http.end();
+                    thaleco_check_result = json;
+                } else {
+                    String body = http.getString();
+                    http.end();
+                    int vKey = body.indexOf("\"version\"");
+                    if (vKey >= 0) {
+                        int colon = body.indexOf(':', vKey);
+                        int q1 = body.indexOf('"', colon + 1);
+                        int q2 = body.indexOf('"', q1 + 1);
+                        if (q1 > 0 && q2 > q1) {
+                            String remote = body.substring(q1 + 1, q2);
+                            json += ",\"available\":\"" + remote + "\"";
+                            bool needs = remote != String(THALECO_FW_VERSION);
+                            json += String(",\"needsUpdate\":") + (needs ? "true" : "false");
+                        }
+                    }
+                    int uKey = body.indexOf("\"firmware_url\"");
+                    if (uKey >= 0) {
+                        int colon = body.indexOf(':', uKey);
+                        int q1 = body.indexOf('"', colon + 1);
+                        int q2 = body.indexOf('"', q1 + 1);
+                        if (q1 > 0 && q2 > q1) {
+                            thaleco_remote_url = body.substring(q1 + 1, q2);
+                        }
+                    }
+                    json += "}";
+                    thaleco_check_result = json;
+                }
+            }
+        }
+        SerialM.print(F("OTA check result: "));
+        SerialM.println(thaleco_check_result);
+    }
+
+    if (thaleco_ota_trigger) {
+        thaleco_ota_trigger = false;
+        thaleco_ota_result = "running";
+        SerialM.println(F("OTA: iniciando update online..."));
+        display.clear();
+        display.drawString(0, 0, "Atualizando...");
+        display.drawString(0, 16, "Nao desligue!");
+        display.display();
+        WiFi.setSleepMode(WIFI_NONE_SLEEP);
+        if (thaleco_remote_url.length() == 0) {
+            thaleco_ota_result = "failed:0:URL nao disponivel (check antes)";
+            return;
+        }
+        WiFiClient otaClient;
+        otaClient.setTimeout(20000);
+        ESPhttpUpdate.setLedPin(LED_BUILTIN, LOW);
+        ESPhttpUpdate.rebootOnUpdate(true);
+        String otaUrl = thaleco_remote_url.length() > 0 ? thaleco_remote_url : String(THALECO_OTA_FIRMWARE_URL);
+        SerialM.print(F("OTA url: "));
+        SerialM.println(otaUrl);
+        t_httpUpdate_return ret = ESPhttpUpdate.update(otaClient, otaUrl, THALECO_FW_VERSION);
+        switch (ret) {
+            case HTTP_UPDATE_FAILED: {
+                int err = ESPhttpUpdate.getLastError();
+                String msg = ESPhttpUpdate.getLastErrorString();
+                thaleco_ota_result = "failed:" + String(err) + ":" + msg;
+                SerialM.printf("OTA falhou: (%d) %s\n", err, msg.c_str());
+                display.clear();
+                display.drawString(0, 0, "Erro OTA");
+                display.drawString(0, 16, String(err));
+                display.display();
+                break;
+            }
+            case HTTP_UPDATE_NO_UPDATES:
+                thaleco_ota_result = "no_updates";
+                SerialM.println(F("OTA: nenhum update"));
+                break;
+            case HTTP_UPDATE_OK:
+                thaleco_ota_result = "ok";
+                SerialM.println(F("OTA: ok (reiniciando)"));
+                break;
+        }
+    }
+
+
 #if HAVE_BUTTONS
     static unsigned long lastButton = micros();
     if (micros() - lastButton > buttonPollInterval) {
@@ -10013,6 +10127,24 @@ void startWebserver()
         }
         request->send(200, "application/json", result ? "true" : "false");
     });
+
+    server.on("/gbs/ota/check", HTTP_GET, [](AsyncWebServerRequest *request) {
+        thaleco_check_trigger = true;
+        request->send(200, "application/json", thaleco_check_result);
+    });
+
+    server.on("/gbs/ota/update", HTTP_GET, [](AsyncWebServerRequest *request) {
+        thaleco_check_trigger = true;
+        thaleco_ota_trigger = true;
+        thaleco_ota_result = "queued";
+        request->send(200, "application/json", "{\"status\":\"queued\"}");
+    });
+
+    server.on("/gbs/ota/result", HTTP_GET, [](AsyncWebServerRequest *request) {
+        String json = "{\"result\":\"" + thaleco_ota_result + "\",\"current\":\"" + String(THALECO_FW_VERSION) + "\"}";
+        request->send(200, "application/json", json);
+    });
+
     //webSocket.onEvent(webSocketEvent);
 
     persWM.setConnectNonBlock(true);

@@ -1995,13 +1995,6 @@ section[name="alert"] {
             </legend>
             <div class="gbs-flex">
               <button
-                gbs-message="c"
-                gbs-message-type="action"
-                gbs-click="normal"
-                class="gbs-button gbs-button__control"
-              >
-                <div class="gbs-icon">system_update_alt</div>
-              <button
                 gbs-message="a"
                 gbs-message-type="user"
                 gbs-click="normal"
@@ -2019,6 +2012,32 @@ section[name="alert"] {
                 <div class="gbs-icon">settings_backup_restore offline_bolt</div>
                 <div>Restaurar Padrões</div>
               </button>
+            </div>
+          </fieldset>
+          <fieldset class="gbs-fieldset">
+            <legend class="gbs-fieldset__legend gbs-fieldset__legend--help">
+              <div class="gbs-icon">cloud_download</div>
+              <div> Atualização Online</div>
+            </legend>
+            <!-- prettier-ignore -->
+            <ul class="gbs-help">
+              <li>Baixa a versão mais recente do firmware direto do servidor do canal e instala automaticamente</li>
+              <li>O aparelho reinicia ao final. Aguarde o Wi-Fi reconectar (~30s)</li>
+            </ul>
+            <div class="gbs-ota">
+              <div class="gbs-ota__status" gbs-ota-status>
+                Versão atual: <span gbs-ota-current>—</span>
+              </div>
+              <div class="gbs-flex">
+                <button class="gbs-button gbs-button__control gbs-ota-check">
+                  <div class="gbs-icon">cloud_download</div>
+                  <div>Verificar</div>
+                </button>
+                <button class="gbs-button gbs-button__control gbs-button__secondary gbs-ota-update" disabled>
+                  <div class="gbs-icon">system_update_alt</div>
+                  <div>Atualizar</div>
+                </button>
+              </div>
             </div>
           </fieldset>
           <fieldset class="gbs-fieldset">
@@ -2076,69 +2095,6 @@ section[name="alert"] {
                 <div class="gbs-icon">download</div>
                 <div>Importar</div>
               </button>
-            </div>
-          </fieldset>
-          <fieldset class="gbs-fieldset">
-            <legend class="gbs-fieldset__legend">
-              <div class="gbs-icon">info</div>
-              <div>Sobre</div>
-            </legend>
-            <div class="gbs-about">
-              <div class="gbs-about__title">GBS-Control by Thaleco</div>
-              <div class="gbs-about__version">
-                Edição Thales Câmara · v<span gbs-about-version>—</span>
-              </div>
-              <div class="gbs-about__credit">
-                Customizado por Luan Freitas ·
-                <a href="https://github.com/ludufre" target="_blank" rel="noopener">@ludufre</a>
-              </div>
-              <div class="gbs-about__credit">
-                Agradecimentos:
-                <a href="https://www.youtube.com/@lima112" target="_blank" rel="noopener">Lima112</a>
-              </div>
-              <div class="gbs-about__credit">
-                Baseado no GBS-Control de ramapcsx2, RetroScaler e colaboradores
-              </div>
-              <div class="gbs-flex gbs-about__links">
-                <a
-                  class="gbs-button gbs-button__control gbs-button__secondary"
-                  href="https://www.youtube.com/@thalescamara"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <div class="gbs-icon">smart_display</div>
-                  <div>YouTube</div>
-                </a>
-                <a
-                  class="gbs-button gbs-button__control gbs-button__secondary"
-                  href="https://www.youtube.com/channel/UCYRtc_byKs1X1U7TdOVs0lg/join"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <div class="gbs-icon">star</div>
-                  <div>Seja membro</div>
-                </a>
-              </div>
-              <div class="gbs-flex gbs-about__links">
-                <a
-                  class="gbs-button gbs-button__control gbs-button__secondary"
-                  href="https://livepix.gg/thalescamara"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <div class="gbs-icon">volunteer_activism</div>
-                  <div>Apoie no LivePix</div>
-                </a>
-                <a
-                  class="gbs-button gbs-button__control gbs-button__secondary"
-                  href="https://thalescamara.com.br"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <div class="gbs-icon">language</div>
-                  <div>Site</div>
-                </a>
-              </div>
             </div>
           </fieldset>
           <fieldset class="gbs-fieldset">
@@ -2481,6 +2437,7 @@ const GBSControl = {
     wsConnectCounter: 0,
     wsNoSuccessConnectingCounter: 0,
     wsTimeout: 0,
+    otaInProgress: false,
 };
 /** websocket services */
 const checkWebSocketServer = () => {
@@ -2529,6 +2486,10 @@ const createWebSocket = () => {
         GBSControl.wsTimeout = setTimeout(timeOutWs, 6000);
         GBSControl.isWsActive = true;
         GBSControl.wsNoSuccessConnectingCounter = 0;
+        if (GBSControl.otaInProgress && GBSControl.wsConnectCounter > 1) {
+            GBSControl.otaInProgress = false;
+            setTimeout(() => window.location.reload(), 15000);
+        }
     };
     GBSControl.ws.onclose = () => {
         console.log("ws.onclose");
@@ -2994,6 +2955,81 @@ const doBackup = () => {
         GBSControl.ui.progressBackup.setAttribute("gbs-progress", ``);
     });
 };
+const populateFirmwareVersion = () => {
+    fetch(`/gbs/ota/result?${+new Date()}`)
+        .then((r) => r.json())
+        .then((data) => {
+        const aboutEl = document.querySelector("[gbs-about-version]");
+        if (aboutEl && data.current)
+            aboutEl.textContent = data.current;
+        const otaEl = document.querySelector("[gbs-ota-current]");
+        if (otaEl && data.current)
+            otaEl.textContent = data.current;
+    })
+        .catch(() => { });
+};
+const otaCheck = () => {
+    const statusEl = document.querySelector("[gbs-ota-status]");
+    const updateBtn = document.querySelector(".gbs-ota-update");
+    const checkBtn = document.querySelector(".gbs-ota-check");
+    checkBtn.setAttribute("disabled", "");
+    updateBtn.setAttribute("disabled", "");
+    statusEl.innerHTML = 'Verificando... <span gbs-ota-current>—</span>';
+    fetch(`/gbs/ota/check?${+new Date()}`)
+        .then(() => new Promise((resolve) => setTimeout(resolve, 4000)))
+        .then(() => fetch(`/gbs/ota/check?${+new Date()}`))
+        .then((r) => r.json())
+        .then((data) => {
+        checkBtn.removeAttribute("disabled");
+        const current = data.current || "—";
+        if (data.error) {
+            statusEl.innerHTML = `<span class="gbs-ota-error">Erro: ${data.error}</span><br>Versão atual: <span gbs-ota-current>${current}</span>`;
+            return;
+        }
+        if (data.needsUpdate) {
+            statusEl.innerHTML = `<span class="gbs-ota-available">Nova versão disponível: ${data.available}</span><br>Versão atual: <span gbs-ota-current>${current}</span>`;
+            updateBtn.removeAttribute("disabled");
+        }
+        else if (data.available) {
+            statusEl.innerHTML = `Já está na versão mais recente.<br>Versão atual: <span gbs-ota-current>${current}</span>`;
+        }
+        else {
+            statusEl.innerHTML = `Sem resposta do servidor.<br>Versão atual: <span gbs-ota-current>${current}</span>`;
+        }
+    })
+        .catch(() => {
+        checkBtn.removeAttribute("disabled");
+        statusEl.innerHTML = '<span class="gbs-ota-error">Falha ao verificar</span>';
+    });
+};
+const otaUpdate = () => {
+    const ok = confirm("Iniciar atualização online?\n\nO aparelho vai baixar o firmware novo (~750KB) e reiniciar.\nNão desligue até o Wi-Fi voltar (~1 minuto).");
+    if (!ok)
+        return;
+    const statusEl = document.querySelector("[gbs-ota-status]");
+    const updateBtn = document.querySelector(".gbs-ota-update");
+    const checkBtn = document.querySelector(".gbs-ota-check");
+    updateBtn.setAttribute("disabled", "");
+    checkBtn.setAttribute("disabled", "");
+    statusEl.innerHTML =
+        'Baixando e instalando... <span class="gbs-ota-available">não desligue</span>';
+    GBSControl.otaInProgress = true;
+    setTimeout(() => {
+        if (GBSControl.otaInProgress) {
+            GBSControl.otaInProgress = false;
+            window.location.reload();
+        }
+    }, 60000);
+    fetch(`/gbs/ota/update?${+new Date()}`)
+        .then((r) => r.json())
+        .catch(() => {
+        GBSControl.otaInProgress = false;
+        statusEl.innerHTML =
+            '<span class="gbs-ota-error">Falha ao disparar a atualização</span>';
+        updateBtn.removeAttribute("disabled");
+        checkBtn.removeAttribute("disabled");
+    });
+};
 const doRestoreThaleco = () => {
     const ok = confirm("Importar Perfis do Thaleco?\n\nIsso sobrescreve os slots A-E com:\n  A. Super Nintendo\n  B. Mega Drive\n  C. PlayStation 1\n  D. PlayStation 2\n  E. Nintendo 64\n\nOs demais slots ficam intactos.\n\nFunção exclusiva para Membros Entusiastas do canal Thales Câmara.");
     if (!ok) {
@@ -3435,6 +3471,13 @@ const initGeneralListeners = () => {
     if (thalecoButton) {
         thalecoButton.addEventListener("click", doRestoreThaleco);
     }
+    const otaCheckBtn = document.querySelector(".gbs-ota-check");
+    if (otaCheckBtn)
+        otaCheckBtn.addEventListener("click", otaCheck);
+    const otaUpdateBtn = document.querySelector(".gbs-ota-update");
+    if (otaUpdateBtn)
+        otaUpdateBtn.addEventListener("click", otaUpdate);
+    populateFirmwareVersion();
     GBSControl.ui.wifiListTable.addEventListener("click", wifiSelectSSID);
     GBSControl.ui.wifiConnectButton.addEventListener("click", wifiConnect);
     GBSControl.ui.wifiApButton.addEventListener("click", wifiSetAPMode);

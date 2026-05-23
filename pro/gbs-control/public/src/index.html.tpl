@@ -1742,16 +1742,7 @@
               <div class="gbs-icon">bolt</div>
               <div>Sistema</div>
             </legend>
-            <div class="gbs-flex">
-              <button
-                gbs-message="c"
-                gbs-message-type="action"
-                gbs-click="normal"
-                class="gbs-button gbs-button__control"
-              >
-                <div class="gbs-icon">system_update_alt</div>
-                <div>Ativar OTA</div>
-              </button>
+            <div class="gbs-flex">              
               <button
                 gbs-message="a"
                 gbs-message-type="user"
@@ -1797,6 +1788,32 @@
                 <input type="file" class="gbs-backup-input" accept=".bin"/>
                 <div gbs-progress gbs-progress-restore>Restaurar</div>
               </button>
+            </div>
+          </fieldset>
+          <fieldset class="gbs-fieldset">
+            <legend class="gbs-fieldset__legend gbs-fieldset__legend--help">
+              <div class="gbs-icon">cloud_download</div>
+              <div> Atualização Online</div>
+            </legend>
+            <!-- prettier-ignore -->
+            <ul class="gbs-help">
+              <li>Baixa a versão mais recente do firmware direto do servidor do canal e instala automaticamente</li>
+              <li>O aparelho reinicia ao final. Aguarde o Wi-Fi reconectar (~30s)</li>
+            </ul>
+            <div class="gbs-ota">
+              <div class="gbs-ota__status" gbs-ota-status>
+                Versão atual: <span gbs-ota-current>—</span>
+              </div>
+              <div class="gbs-flex">
+                <button class="gbs-button gbs-button__control gbs-ota-check">
+                  <div class="gbs-icon">cloud_download</div>
+                  <div>Verificar</div>
+                </button>
+                <button class="gbs-button gbs-button__control gbs-button__secondary gbs-ota-update" disabled>
+                  <div class="gbs-icon">system_update_alt</div>
+                  <div>Atualizar</div>
+                </button>
+              </div>
             </div>
           </fieldset>
           <fieldset class="gbs-fieldset">

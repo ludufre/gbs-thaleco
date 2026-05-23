@@ -166,6 +166,7 @@ const GBSControl = {
   wsConnectCounter: 0,
   wsNoSuccessConnectingCounter: 0,
   wsTimeout: 0,
+  otaInProgress: false,
 };
 
 /** websocket services */
@@ -223,6 +224,11 @@ const createWebSocket = () => {
     GBSControl.wsTimeout = setTimeout(timeOutWs, 6000);
     GBSControl.isWsActive = true;
     GBSControl.wsNoSuccessConnectingCounter = 0;
+
+    if (GBSControl.otaInProgress && GBSControl.wsConnectCounter > 1) {
+      GBSControl.otaInProgress = false;
+      setTimeout(() => window.location.reload(), 15000);
+    }
   };
 
   GBSControl.ws.onclose = () => {
@@ -822,6 +828,90 @@ const doBackup = () => {
     });
 };
 
+const populateFirmwareVersion = () => {
+  fetch(`/gbs/ota/result?${+new Date()}`)
+    .then((r) => r.json())
+    .then((data: any) => {
+      const aboutEl = document.querySelector("[gbs-about-version]");
+      if (aboutEl && data.current) aboutEl.textContent = data.current;
+      const otaEl = document.querySelector("[gbs-ota-current]");
+      if (otaEl && data.current) otaEl.textContent = data.current;
+    })
+    .catch(() => {});
+};
+
+const otaCheck = () => {
+  const statusEl = document.querySelector("[gbs-ota-status]") as HTMLElement;
+  const updateBtn = document.querySelector(
+    ".gbs-ota-update"
+  ) as HTMLButtonElement;
+  const checkBtn = document.querySelector(".gbs-ota-check") as HTMLButtonElement;
+
+  checkBtn.setAttribute("disabled", "");
+  updateBtn.setAttribute("disabled", "");
+  statusEl.innerHTML = 'Verificando... <span gbs-ota-current>—</span>';
+
+  fetch(`/gbs/ota/check?${+new Date()}`)
+    .then(() => new Promise((resolve) => setTimeout(resolve, 4000)))
+    .then(() => fetch(`/gbs/ota/check?${+new Date()}`))
+    .then((r) => r.json())
+    .then((data: any) => {
+      checkBtn.removeAttribute("disabled");
+      const current = data.current || "—";
+      if (data.error) {
+        statusEl.innerHTML = `<span class="gbs-ota-error">Erro: ${data.error}</span><br>Versão atual: <span gbs-ota-current>${current}</span>`;
+        return;
+      }
+      if (data.needsUpdate) {
+        statusEl.innerHTML = `<span class="gbs-ota-available">Nova versão disponível: ${data.available}</span><br>Versão atual: <span gbs-ota-current>${current}</span>`;
+        updateBtn.removeAttribute("disabled");
+      } else if (data.available) {
+        statusEl.innerHTML = `Já está na versão mais recente.<br>Versão atual: <span gbs-ota-current>${current}</span>`;
+      } else {
+        statusEl.innerHTML = `Sem resposta do servidor.<br>Versão atual: <span gbs-ota-current>${current}</span>`;
+      }
+    })
+    .catch(() => {
+      checkBtn.removeAttribute("disabled");
+      statusEl.innerHTML = '<span class="gbs-ota-error">Falha ao verificar</span>';
+    });
+};
+
+const otaUpdate = () => {
+  const ok = confirm(
+    "Iniciar atualização online?\n\nO aparelho vai baixar o firmware novo (~750KB) e reiniciar.\nNão desligue até o Wi-Fi voltar (~1 minuto)."
+  );
+  if (!ok) return;
+  const statusEl = document.querySelector("[gbs-ota-status]") as HTMLElement;
+  const updateBtn = document.querySelector(
+    ".gbs-ota-update"
+  ) as HTMLButtonElement;
+  const checkBtn = document.querySelector(".gbs-ota-check") as HTMLButtonElement;
+  updateBtn.setAttribute("disabled", "");
+  checkBtn.setAttribute("disabled", "");
+  statusEl.innerHTML =
+    'Baixando e instalando... <span class="gbs-ota-available">não desligue</span>';
+
+  GBSControl.otaInProgress = true;
+
+  setTimeout(() => {
+    if (GBSControl.otaInProgress) {
+      GBSControl.otaInProgress = false;
+      window.location.reload();
+    }
+  }, 60000);
+
+  fetch(`/gbs/ota/update?${+new Date()}`)
+    .then((r) => r.json())
+    .catch(() => {
+      GBSControl.otaInProgress = false;
+      statusEl.innerHTML =
+        '<span class="gbs-ota-error">Falha ao disparar a atualização</span>';
+      updateBtn.removeAttribute("disabled");
+      checkBtn.removeAttribute("disabled");
+    });
+};
+
 const doRestoreThaleco = () => {
   const ok = confirm(
     "Importar Perfis do Thaleco?\n\nIsso sobrescreve os slots A-E com:\n  A. Super Nintendo\n  B. Mega Drive\n  C. PlayStation 1\n  D. PlayStation 2\n  E. Nintendo 64\n\nOs demais slots ficam intactos.\n\nFunção exclusiva para Membros Entusiastas do canal Thales Câmara."
@@ -1378,6 +1468,11 @@ const initGeneralListeners = () => {
   if (thalecoButton) {
     thalecoButton.addEventListener("click", doRestoreThaleco);
   }
+  const otaCheckBtn = document.querySelector(".gbs-ota-check");
+  if (otaCheckBtn) otaCheckBtn.addEventListener("click", otaCheck);
+  const otaUpdateBtn = document.querySelector(".gbs-ota-update");
+  if (otaUpdateBtn) otaUpdateBtn.addEventListener("click", otaUpdate);
+  populateFirmwareVersion();
   GBSControl.ui.wifiListTable.addEventListener("click", wifiSelectSSID);
   GBSControl.ui.wifiConnectButton.addEventListener("click", wifiConnect);
   GBSControl.ui.wifiApButton.addEventListener("click", wifiSetAPMode);

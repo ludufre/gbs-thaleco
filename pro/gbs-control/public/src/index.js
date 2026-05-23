@@ -250,6 +250,7 @@ const GBSControl = {
     wsConnectCounter: 0,
     wsNoSuccessConnectingCounter: 0,
     wsTimeout: 0,
+    otaInProgress: false,
 };
 /** websocket services */
 const checkWebSocketServer = () => {
@@ -298,6 +299,10 @@ const createWebSocket = () => {
         GBSControl.wsTimeout = setTimeout(timeOutWs, 6000);
         GBSControl.isWsActive = true;
         GBSControl.wsNoSuccessConnectingCounter = 0;
+        if (GBSControl.otaInProgress && GBSControl.wsConnectCounter > 1) {
+            GBSControl.otaInProgress = false;
+            setTimeout(() => window.location.reload(), 15000);
+        }
     };
     GBSControl.ws.onclose = () => {
         console.log("ws.onclose");
@@ -908,6 +913,81 @@ const doRestoreThaleco = () => {
         });
     })
         .catch(() => { });
+};
+const populateFirmwareVersion = () => {
+    fetch(`/gbs/ota/result?${+new Date()}`)
+        .then((r) => r.json())
+        .then((data) => {
+        const aboutEl = document.querySelector("[gbs-about-version]");
+        if (aboutEl && data.current)
+            aboutEl.textContent = data.current;
+        const otaEl = document.querySelector("[gbs-ota-current]");
+        if (otaEl && data.current)
+            otaEl.textContent = data.current;
+    })
+        .catch(() => { });
+};
+const otaCheck = () => {
+    const statusEl = document.querySelector("[gbs-ota-status]");
+    const updateBtn = document.querySelector(".gbs-ota-update");
+    const checkBtn = document.querySelector(".gbs-ota-check");
+    checkBtn.setAttribute("disabled", "");
+    updateBtn.setAttribute("disabled", "");
+    statusEl.innerHTML = 'Verificando... <span gbs-ota-current>—</span>';
+    fetch(`/gbs/ota/check?${+new Date()}`)
+        .then(() => new Promise((resolve) => setTimeout(resolve, 4000)))
+        .then(() => fetch(`/gbs/ota/check?${+new Date()}`))
+        .then((r) => r.json())
+        .then((data) => {
+        checkBtn.removeAttribute("disabled");
+        const current = data.current || "—";
+        if (data.error) {
+            statusEl.innerHTML = `<span class="gbs-ota-error">Erro: ${data.error}</span><br>Versão atual: <span gbs-ota-current>${current}</span>`;
+            return;
+        }
+        if (data.needsUpdate) {
+            statusEl.innerHTML = `<span class="gbs-ota-available">Nova versão disponível: ${data.available}</span><br>Versão atual: <span gbs-ota-current>${current}</span>`;
+            updateBtn.removeAttribute("disabled");
+        }
+        else if (data.available) {
+            statusEl.innerHTML = `Já está na versão mais recente.<br>Versão atual: <span gbs-ota-current>${current}</span>`;
+        }
+        else {
+            statusEl.innerHTML = `Sem resposta do servidor.<br>Versão atual: <span gbs-ota-current>${current}</span>`;
+        }
+    })
+        .catch(() => {
+        checkBtn.removeAttribute("disabled");
+        statusEl.innerHTML = '<span class="gbs-ota-error">Falha ao verificar</span>';
+    });
+};
+const otaUpdate = () => {
+    const ok = confirm("Iniciar atualização online?\n\nO aparelho vai baixar o firmware novo (~750KB) e reiniciar.\nNão desligue até o Wi-Fi voltar (~1 minuto).");
+    if (!ok)
+        return;
+    const statusEl = document.querySelector("[gbs-ota-status]");
+    const updateBtn = document.querySelector(".gbs-ota-update");
+    const checkBtn = document.querySelector(".gbs-ota-check");
+    updateBtn.setAttribute("disabled", "");
+    checkBtn.setAttribute("disabled", "");
+    statusEl.innerHTML =
+        'Baixando e instalando... <span class="gbs-ota-available">não desligue</span>';
+    GBSControl.otaInProgress = true;
+    setTimeout(() => {
+        if (GBSControl.otaInProgress) {
+            GBSControl.otaInProgress = false;
+            window.location.reload();
+        }
+    }, 60000);
+    fetch(`/gbs/ota/update?${+new Date()}`)
+        .then((r) => r.json())
+        .catch(() => {
+        GBSControl.otaInProgress = false;
+        statusEl.innerHTML =
+            '<span class="gbs-ota-error">Falha ao disparar a atualização</span>';
+        updateBtn.removeAttribute("disabled");
+        checkBtn.removeAttribute("disabled");
+    });
 };
 const updateSlotNames = () => {
     const structs = GBSControl.structs;
@@ -2144,6 +2224,15 @@ const initGeneralListeners = () => {
     if (thalecoButton) {
         thalecoButton.addEventListener("click", doRestoreThaleco);
     }
+    const otaCheckBtn = document.querySelector(".gbs-ota-check");
+    if (otaCheckBtn) {
+        otaCheckBtn.addEventListener("click", otaCheck);
+    }
+    const otaUpdateBtn = document.querySelector(".gbs-ota-update");
+    if (otaUpdateBtn) {
+        otaUpdateBtn.addEventListener("click", otaUpdate);
+    }
+    populateFirmwareVersion();
     GBSControl.ui.alertOk.addEventListener("click", () => {
         GBSControl.ui.alert.setAttribute("hidden", "");
         gbsAlertPromise.resolve();
