@@ -230,6 +230,14 @@
                 <div class="gbs-icon">fiber_manual_record</div>
                 <div>salvar perfil</div>
               </button>
+              <button
+                class="gbs-button gbs-button__control-action gbs-delete-preset-button"
+                onclick="deletePreset()"
+                active
+              >
+                <div class="gbs-icon">delete_forever</div>
+                <div>apagar perfil</div>
+              </button>
             </div>
           </fieldset>
         </section>

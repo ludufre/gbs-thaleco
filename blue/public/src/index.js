@@ -373,6 +373,40 @@ const savePreset = () => {
     })
         .catch(() => { });
 };
+const deletePreset = () => {
+    const currentSlot = document.querySelector('[gbs-role="slot"][active]');
+    if (!currentSlot) {
+        return;
+    }
+    const currentIndex = parseInt(currentSlot.getAttribute("gbs-slot-id") || "0", 10);
+    const slotData = GBSControl.structs.slots[currentIndex];
+    const slotName = slotData && slotData.name ? slotData.name.trim() : "";
+    if (!slotName || slotName === "Empty") {
+        return;
+    }
+    const ok = confirm(`Apagar o preset "${slotName}"?\n\nIsso remove todos os arquivos desse slot e desloca os slots seguintes para cima.`);
+    if (!ok) {
+        return;
+    }
+    fetch(`/slot/remove?1&${+new Date()}`)
+        .then((r) => r.json())
+        .then((success) => {
+        if (success) {
+            setTimeout(() => {
+                fetchSlotNames().then((ok) => {
+                    if (ok)
+                        updateSlotNames();
+                });
+            }, 300);
+        }
+        else {
+            gbsAlert("Falha ao apagar o preset").catch(() => { });
+        }
+    })
+        .catch(() => {
+        gbsAlert("Erro ao apagar o preset").catch(() => { });
+    });
+};
 const loadPreset = () => {
     loadUser("3").then(() => {
         if (GBSStorage.read("customSlotFilters") === true) {
