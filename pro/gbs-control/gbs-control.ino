@@ -18,7 +18,7 @@
 #include "slot.h"
 #include "thaleco_presets.h"
 
-#define THALECO_FW_VERSION "1.1.0"
+#define THALECO_FW_VERSION "1.1.1"
 #define THALECO_OTA_VERSION_URL "" // Add here the URL to the version.json file on your server with content like: { "version": "1.1.0", "firmware_url": "http://yourserver.com/firmware.bin" }
 #define THALECO_OTA_FIRMWARE_URL "" // Add here the URL to the firmware.bin file on your server
 
@@ -10475,6 +10475,7 @@ void handleType2Command(char argument)
             GBS::VDS_Y_OFST::write(GBS::VDS_Y_OFST::read() + 1);
             if (GBS::VDS_Y_OFST::read() == 0x80)
                 GBS::VDS_Y_OFST::write(0x00);
+            readYUVtoRGBConversion();
             break;
         case 'T':
             // Y_offset -
@@ -10482,6 +10483,7 @@ void handleType2Command(char argument)
             if (GBS::VDS_Y_OFST::read() == 0x7F) {
                 GBS::VDS_Y_OFST::write(0x00);
             }
+            readYUVtoRGBConversion();
             break;
         case 'N':
             // Contrast +
@@ -10503,6 +10505,7 @@ void handleType2Command(char argument)
             if (GBS::VDS_U_OFST::read() == 0x80) {
                 GBS::VDS_U_OFST::write(0x00);
             }
+            readYUVtoRGBConversion();
             break;
         case 'H':
             // U_offset -
@@ -10512,6 +10515,7 @@ void handleType2Command(char argument)
             if (GBS::VDS_U_OFST::read() == 0x7F) {
                 GBS::VDS_U_OFST::write(0x00);
             }
+            readYUVtoRGBConversion();
             break;
         case 'P':
             // V_offset +
@@ -10521,6 +10525,7 @@ void handleType2Command(char argument)
             if (GBS::VDS_V_OFST::read() == 0x80) {
                 GBS::VDS_V_OFST::write(0x00);
             }
+            readYUVtoRGBConversion();
             break;
         case 'S':
             // V_offset -
@@ -10530,6 +10535,7 @@ void handleType2Command(char argument)
             if (GBS::VDS_V_OFST::read() == 0x7F) {
                 GBS::VDS_V_OFST::write(0x00);
             }
+            readYUVtoRGBConversion();
             break;
         case 'V':
             // Цвет +

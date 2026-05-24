@@ -8,6 +8,7 @@ extern void shiftVerticalDownIF();
 extern void shiftVerticalUpIF();
 extern void scaleVertical(uint16_t, bool);
 extern void scaleHorizontal(uint16_t, bool);
+extern void readYUVtoRGBConversion(void);
 extern OSDManager osdManager;
 
 bool osdBrightness(OSDMenuConfig &config)
@@ -21,7 +22,8 @@ bool osdBrightness(OSDMenuConfig &config)
             cur = MAX(-128, cur - STEP);
         }
         GBS::VDS_Y_OFST::write(cur);
-    } 
+        readYUVtoRGBConversion();
+    }
     config.barLength = 256 / STEP;
     config.barActiveLength = (cur + 128 + 1) / STEP;
     return true;
