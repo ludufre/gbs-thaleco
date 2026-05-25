@@ -11010,26 +11010,40 @@ void startWebserver()
         }
         thalecoImportRegisterSuccess();
         bool result = false;
-        if (request->hasParam("i") && ESP.getFreeHeap() > 8000) {
+        uint32_t heapStart = ESP.getFreeHeap();
+        if (request->hasParam("i") && heapStart > 6000) {
             int i = request->getParam("i")->value().toInt();
             if (i >= 0 && i < (int)thaleco_preset_map_size) {
                 const ThalecoPresetEntry &entry = thaleco_preset_map[i];
-                String content;
-                content.reserve(2100);
-                char buf[8];
+                static char content[2700];
+                size_t contentLen = 0;
+                char buf[12];
+                bool buildOk = true;
                 for (uint16_t j = 0; j < entry.length; j++) {
-                    snprintf(buf, sizeof(buf), "%d,\r\n", (int)pgm_read_byte(&entry.data[j]));
-                    content += buf;
+                    int len = snprintf(buf, sizeof(buf), "%d,\r\n", (int)pgm_read_byte(&entry.data[j]));
+                    if (len <= 0 || contentLen + (size_t)len > sizeof(content) - 4) { buildOk = false; break; }
+                    memcpy(content + contentLen, buf, (size_t)len);
+                    contentLen += (size_t)len;
                 }
-                content += "};\r\n";
-                File f = LittleFS.open(entry.path, "w");
-                if (f) {
-                    f.write((const uint8_t *)content.c_str(), content.length());
-                    f.close();
-                    result = true;
+                if (buildOk) {
+                    memcpy(content + contentLen, "};\r\n", 4);
+                    contentLen += 4;
+                    File f = LittleFS.open(entry.path, "w");
+                    if (f) {
+                        size_t written = f.write((const uint8_t *)content, contentLen);
+                        f.close();
+                        if (written == contentLen) result = true;
+                    }
                 }
             }
         }
+        SerialM.print(F("thaleco preset i="));
+        SerialM.print(request->hasParam("i") ? request->getParam("i")->value() : String("?"));
+        SerialM.print(F(" heap="));
+        SerialM.print(heapStart);
+        SerialM.print(F("->"));
+        SerialM.print(ESP.getFreeHeap());
+        SerialM.println(result ? F(" ok") : F(" FAIL"));
         request->send(200, "application/json", result ? "true" : "false");
     });
 
@@ -11047,23 +11061,28 @@ void startWebserver()
         }
         thalecoImportRegisterSuccess();
         bool result = false;
-        if (ESP.getFreeHeap() > 10000) {
-            File slotsRead = LittleFS.open(SLOTS_FILE, "r");
-            if (!slotsRead) {
-                slotsRead = initSlotsFile();
+        uint32_t heapStart = ESP.getFreeHeap();
+        if (heapStart > 8000) {
+            if (!LittleFS.exists(SLOTS_FILE)) {
+                File init = initSlotsFile();
+                if (init) init.close();
             }
-            if (slotsRead) {
-                SlotMetaArray slotsObject;
-                slotsRead.seek(SLOTS_HEADER_SIZE, SeekSet);
-                slotsRead.read((byte *)&slotsObject, sizeof(slotsObject));
-                slotsRead.close();
-
+            File slotsFile = LittleFS.open(SLOTS_FILE, "r+");
+            if (slotsFile) {
+                bool anyWritten = false;
                 for (uint8_t i = 0; i < thaleco_slots_size; i++) {
                     const ThalecoSlotDef &s = thaleco_slots[i];
                     if (s.slotIdx >= SLOTS_TOTAL) continue;
-                    SlotMeta &meta = slotsObject.slot[s.slotIdx];
-                    char padded[25] = "                        ";
-                    strncpy(padded, s.name, strlen(s.name));
+                    size_t off = SLOTS_HEADER_SIZE + (size_t)s.slotIdx * sizeof(SlotMeta);
+                    SlotMeta meta;
+                    if (!slotsFile.seek(off, SeekSet)) continue;
+                    if (slotsFile.read((byte *)&meta, sizeof(meta)) != sizeof(meta)) continue;
+                    char padded[25];
+                    memset(padded, ' ', 24);
+                    padded[24] = '\0';
+                    size_t nameLen = strlen(s.name);
+                    if (nameLen > 24) nameLen = 24;
+                    memcpy(padded, s.name, nameLen);
                     memcpy(meta.name, padded, 25);
                     meta.slot = s.slotIdx;
                     meta.presetID = 0;
@@ -11072,18 +11091,22 @@ void startWebserver()
                     meta.wantVdsLineFilter = s.wantVdsLineFilter;
                     meta.wantStepResponse = s.wantStepResponse;
                     meta.wantPeaking = s.wantPeaking;
+                    if (!slotsFile.seek(off, SeekSet)) continue;
+                    if (slotsFile.write((byte *)&meta, sizeof(meta)) == sizeof(meta)) {
+                        anyWritten = true;
+                    }
                 }
-
-                File slotsWrite = LittleFS.open(SLOTS_FILE, "r+");
-                if (slotsWrite) {
-                    slotsWrite.seek(SLOTS_HEADER_SIZE, SeekSet);
-                    slotsWrite.write((byte *)&slotsObject, sizeof(slotsObject));
-                    slotsWrite.close();
+                slotsFile.close();
+                if (anyWritten) {
                     result = true;
-                    SerialM.println(F("thaleco slots applied"));
                 }
             }
         }
+        SerialM.print(F("thaleco slots heap="));
+        SerialM.print(heapStart);
+        SerialM.print(F("->"));
+        SerialM.print(ESP.getFreeHeap());
+        SerialM.println(result ? F(" ok") : F(" FAIL"));
         request->send(200, "application/json", result ? "true" : "false");
     });
 

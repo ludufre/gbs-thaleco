@@ -1017,10 +1017,13 @@ const doRestoreThaleco = () => {
         })
         .then(() => {
           loadUser("a").then(() => {
-            alert(
-              "Perfis importados!\nReiniciando o GBS-Control.\nAguarde o wifi reconectar e recarregue esta página."
-            );
-            window.location.reload();
+            gbsAlert(
+              "Perfis importados!\nReiniciando o GBS-Control.\nAguarde o wifi reconectar e clique OK"
+            )
+              .then(() => {
+                window.location.reload();
+              })
+              .catch(() => {});
           });
         })
         .catch((e) => {
