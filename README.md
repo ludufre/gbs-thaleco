@@ -19,13 +19,17 @@
 
 # GBS-Control Thales Câmara Edition
 
-Custom firmware for the **GBS Control (Blue)** and **GBSC Pro** video upscalers, tailored for the [Thales Câmara YouTube channel](https://www.youtube.com/@thalescamara).
+> _"Firmware do canal, pra galera."_
 
-This project takes the excellent open-source firmware from the GBS Control community and adapts it with a Brazilian Portuguese localization, curated presets for popular retro consoles, themed UI colors and quality-of-life improvements aimed at the channel's audience.
+Custom firmware for the **GBS Control (Blue)** and **GBSC Pro** video upscalers, tailored for the [Thales Câmara YouTube channel](https://www.youtube.com/@thalescamara). Officially branded **GBS-Control Edição Thales Câmara** and available in two flavors: **Edição Azul** (Blue) and **Edição Pro**.
+
+This project takes the excellent open-source firmware from the GBS Control community and adapts it with a full Brazilian Portuguese localization, curated presets for popular retro consoles, channel-themed UI colors, stability fixes and quality-of-life improvements aimed at the channel's audience, installable straight from the browser.
+
+This is an independent, community customization with no official affiliation to RetroScaler or Brisma.
 
 ## Links
 
-[Thales Câmara — YouTube](https://www.youtube.com/@thalescamara) | [GBS Control (upstream)](https://github.com/ramapcsx2/gbs-control) | [GBSC Pro (upstream)](https://github.com/RetroScaler/gbsc-pro)
+[Hotsite & web installer](http://thaleco.ludufre.com) | [Thales Câmara — YouTube](https://www.youtube.com/@thalescamara) | [GBS Control (upstream)](https://github.com/ramapcsx2/gbs-control) | [GBSC Pro (upstream)](https://github.com/RetroScaler/gbsc-pro)
 
 ## About the devices
 
@@ -39,8 +43,24 @@ This project takes the excellent open-source firmware from the GBS Control commu
 - **Brazilian Portuguese translation** across the Web UI, OLED menu and on-screen display (OSD).
 - **Custom Web UI theme** with colors matching the Thales Câmara channel identity.
 - **Curated presets** for popular consoles (NES, SNES, Mega Drive / Genesis, PlayStation, Saturn, Nintendo 64, and more) so users can get a great picture without manual tweaking.
+- **Browser-based web installer** flash over USB straight from Chrome or Edge on desktop (via WebSerial).
 - **OTA updates** — firmware can be updated over Wi-Fi directly from the Web UI.
 - All upstream features remain available: motion-adaptive deinterlacer, ADC auto gain/offset, scanlines, BCSH controls, bypass modes, etc.
+
+The Web UI is organized into five sections: **Profiles, Image, Filters, Config** and **System**.
+
+## Installation
+
+Installation runs entirely in the browser.
+
+1. Connect the board to your computer with a USB **data** cable.
+2. Open the web installer for your board:
+   - **Edição Azul:** <http://thaleco.ludufre.com/flasher>
+   - **Edição Pro:** <http://thaleco.ludufre.com/pro>
+3. Select the serial port and wait roughly a minute for the flash to complete.
+4. From then on, updates can be done wirelessly via OTA from the Web UI.
+
+> The web installer requires **Chrome or Edge on desktop** (WebSerial is not supported by Safari, Firefox or mobile browsers). The initial web install may erase saved profiles (a checkbox controls this); OTA updates preserve them. You can revert to the original firmware at any time from the upstream repositories.
 
 ## Repository structure
 
@@ -96,3 +116,7 @@ Huge thanks to the developers and maintainers of the original firmware and hardw
 [@ramapcsx2](https://github.com/ramapcsx2), [@RetroScaler](https://github.com/RetroScaler), [@Brisma](https://github.com/Brisma), and all the contributors to the upstream `gbs-control` and `gbsc-pro` projects — alongside earlier work by dooklink, mybook4, Ian Stedman and others.
 
 And of course, thanks to [Thales Câmara](https://www.youtube.com/@thalescamara) and the channel's community for supporting this customization effort.
+
+## Credits
+
+Firmware customization and engineering by [Luan Freitas (@ludufre)](https://github.com/ludufre); curation and channel identity by [Thales Câmara](https://www.youtube.com/@thalescamara).
